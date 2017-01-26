@@ -1,16 +1,21 @@
 class Monster {
   PVector location;
   PVector velocity;
+  int dropSpeed;
   int healthPoints;
   int size;
   
-  Monster(PVector a) {
-    velocity = new PVector(0, 4);
-    location = a.get();
+  Monster(PVector drop, float dropSpeed) {
+    dropSpeed = dropSpeed;
+    velocity = new PVector(0, dropSpeed);
+    location = drop.get();
     healthPoints = 100;
     size = 100;
   }
 
+  int getY() {
+    return (int)location.y;
+  }
   boolean isDead() {
   	if (healthPoints <= 0) {
   		return true;

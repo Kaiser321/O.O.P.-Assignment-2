@@ -8,19 +8,24 @@ class MonsterWave {
   	startY = 0;
   }
 
+  void addMonsters(float dropSpeed) {
 
-
-  void addMonsters() {
   	while (wave.size() < 6) {
-  		wave.add(new Monster(new PVector(startX, startY)));
+  		wave.add(new Monster(new PVector(startX, startY), dropSpeed));
   		startX = startX + 100;
   	}
   }
+
   void display() {
     
     for(Monster w : wave) {
-    	w.updateMonster();
-    	w.drawMonster();
+      if (w.isDead() == false) {
+        w.updateMonster();
+        w.drawMonster();
+      }
+      else {
+        w.updateMonster();
+      }
     }
   }
 }
