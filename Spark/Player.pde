@@ -1,18 +1,25 @@
 class Player {
   int playerSize = 100;
+  float playerX;
   
   Player() { 
+  }
+  
+  
+  void updatePlayer() {
+    playerX = mouseX;
+    
+    if(playerX <= 50) {
+      playerX = 50;
+    }
+    else if(playerX >= 550) {
+     playerX = 550; 
+    }  
   }
   
   void drawPlayer() {
     stroke(255);
     rectMode(CENTER);
-    if(mouseX <= 50) {
-      mouseX = 50;
-    }
-    else if(mouseX >= 550) {
-     mouseX = 550; 
-    }
-    rect(mouseX, 900, playerSize, playerSize);
+    rect(playerX, 900, playerSize, playerSize);
   }
 }
