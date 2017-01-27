@@ -1,12 +1,10 @@
 class Monster {
   PVector location;
   PVector velocity;
-  int dropSpeed;
   int healthPoints;
   int size;
   
   Monster(PVector drop, float dropSpeed) {
-    dropSpeed = dropSpeed;
     velocity = new PVector(0, dropSpeed);
     location = drop.get();
     healthPoints = 100;

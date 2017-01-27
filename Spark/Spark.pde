@@ -9,7 +9,7 @@ ArrayList<MonsterWave> waveSystem = new ArrayList<MonsterWave>(); // Arraylist f
 float dropSpeed = 2; // How fast the waves drops
 
 float delay = 100; // Delay the next wave
-float delayCounter = 0.3;; // Counter used to decrease the delay time as the game goes on
+float delayCounter = 0.3; // Counter used to decrease the delay time as the game goes on
 
 void setup() {
   size(600, 1000);
@@ -46,8 +46,10 @@ void draw() {
   }
 
   // Remove MonsterWaves if they move off the window
-  if(waveSystem.get(0).wave.get(0).getY() >= 1100) {
-  	waveSystem.remove(0);
+  if (waveSystem.size() > 0) {
+    if(waveSystem.get(0).wave.get(0).getY() >= 1100) {
+    	waveSystem.remove(0);
+    }
   }
 
   println(delay, delayCounter);
@@ -66,4 +68,3 @@ boolean nextWave() {
 		return false;	
 	}
 }
-
