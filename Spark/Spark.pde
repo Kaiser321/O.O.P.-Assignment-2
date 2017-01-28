@@ -34,9 +34,14 @@ void draw() {
   	waveSystem.add(new MonsterWave());
 
   	for(MonsterWave m : waveSystem) {
-  	m.addMonsters(dropSpeed);
+      m.addMonsters(dropSpeed);
     }
-
+    
+  /*
+    // m.size() = last node in arraylist
+    MonsterWave m = waveSystem.get(waveSystem.size()-1);
+    m.addMonsters(dropSpeed);
+  */
     dropSpeed = dropSpeed * 1.03;
   }
 
@@ -51,8 +56,6 @@ void draw() {
     	waveSystem.remove(0);
     }
   }
-
-  println(delay, delayCounter);
 
 }
 

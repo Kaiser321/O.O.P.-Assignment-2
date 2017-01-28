@@ -18,7 +18,7 @@ class Player {
   }
   
   void drawPlayer() {
-    stroke(255);
+    fill(255);
     rectMode(CENTER);
     rect(playerX, 900, playerSize, playerSize);
   }

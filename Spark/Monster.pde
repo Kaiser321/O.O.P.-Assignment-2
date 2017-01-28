@@ -14,6 +14,7 @@ class Monster {
   int getY() {
     return (int)location.y;
   }
+
   boolean isDead() {
   	if (healthPoints <= 0) {
   		return true;
@@ -28,7 +29,6 @@ class Monster {
   }
  
   void drawMonster() {
-  	noFill();
     rect(location.x, location.y, size, size);
   }
   
