@@ -1,10 +1,12 @@
 class Player {
   PVector location;
   PVector playerSize;
+  int weaponArmed;
   
-  Player() { 
+  Player(int weaponCode) { 
     location = new PVector(0, 900);
     playerSize = new PVector(75, 100);
+    weaponArmed = weaponCode;
   }
   
   
@@ -25,8 +27,4 @@ class Player {
     rect(location.x, location.y, playerSize.x, playerSize.y);
   }
 
-  void fireWeapon() {
-
-
-  }
 }

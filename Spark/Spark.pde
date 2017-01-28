@@ -3,14 +3,16 @@ int width = 600, height = 1000;
 float dropSpeed = 2; // How fast the waves drops
 float delay = 100; // Delay the next wave
 float delayCounter = 0.3; // Counter used to decrease the delay time as the game goes on
+int playerWeapon = 0;
 
 /* Declear Classes*/
-Player player = new Player(); // Player Object
+Player player = new Player(playerWeapon); // Player Object
 ArrayList<MonsterWave> waveSystem = new ArrayList<MonsterWave>(); // Arraylist for waves of monsters
+Weapon weapon = new Weapon();
 
 void setup() {
   size(600, 1000);
-  smooth();
+  // /smooth();
 
   // Making the first wave
   waveSystem.add(new MonsterWave());
@@ -38,18 +40,18 @@ void draw() {
   	for(MonsterWave m : waveSystem) {
       m.addMonsters(dropSpeed);
     }
-    
-
-    // m.size() = last node in arraylist
-    //MonsterWave m = waveSystem.get(waveSystem.size()-1);
-    //m.addMonsters(dropSpeed);
 
     dropSpeed = dropSpeed * 1.03;
   }
 
   
   //Update and draw bullet
-
+  if (weapon.nextBullet()) {
+    if(mousePressed){
+      weapon.fireBullet();
+    }
+  }
+  weapon.displayBulletsFired();
 
 
   // Check for Collision 
@@ -67,11 +69,9 @@ void draw() {
   }
 
   // Remove bullet
-
+  //weapon.removeBullet();
 
   println(frameRate);
-
-
 }
 
 boolean nextWave() {
@@ -79,7 +79,6 @@ boolean nextWave() {
 		delay = 100;
 		delayCounter = delayCounter + 0.03;
 		return true;
-		
 	}
 	else {
 		delay = delay - delayCounter;
