@@ -9,4 +9,5 @@ class GreenMonster extends Monster {
 		fill(0, 100, 0); // Green
 		super.drawMonster();
 	}
+
 }

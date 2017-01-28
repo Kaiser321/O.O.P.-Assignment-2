@@ -29,6 +29,7 @@ class Monster {
   }
  
   void drawMonster() {
+    noStroke();
     rect(location.x, location.y, size, size);
   }
   

@@ -1,32 +1,41 @@
 /* Gobal Variables*/
 int width = 600, height = 1000;
-float dropSpeed = 2; // How fast the waves drops
-float delay = 100; // Delay the next wave
-float delayCounter = 0.3; // Counter used to decrease the delay time as the game goes on
-int playerWeapon = 0;
+float monsterDropSpeed = 2; // How fast the waves drops
+float waveDelay = 100; // Delay the next wave
+float waveDelayCounter = 0.3; // Counter used to decrease the delay time as the game goes on
 
-/* Declear Classes*/
-Player player = new Player(playerWeapon); // Player Object
-ArrayList<MonsterWave> waveSystem = new ArrayList<MonsterWave>(); // Arraylist for waves of monsters
-Weapon weapon = new Weapon();
+int playerWeaponArmed = 3;
+
+int[] playerWeaponDamage = new int[] {25, 25, 25, 25};
+
+int playerBulletSpeed = 10;
+int playerBulletDelay = 4;
+
+  /* Declear Classes*/
+  Player player = new Player(); // Player Object
+  ArrayList<MonsterWave> waveSystem = new ArrayList<MonsterWave>(); // Arraylist for waves of monsters
+  Weapon weapon = new Weapon(playerBulletSpeed, playerBulletDelay, playerWeaponDamage); // Current Weapon armed
+
+
+
 
 void setup() {
   size(600, 1000);
-  // /smooth();
+  smooth();
+
+
 
   // Making the first wave
   waveSystem.add(new MonsterWave());
   for(MonsterWave m : waveSystem) {
-  	m.addMonsters(dropSpeed);
+  	m.addMonsters(monsterDropSpeed);
   }
-
 
 }
 
 void draw() {
   
   background(0);
-
 
   // Display the wave
   for(MonsterWave m : waveSystem) {
@@ -38,23 +47,24 @@ void draw() {
   	waveSystem.add(new MonsterWave());
 
   	for(MonsterWave m : waveSystem) {
-      m.addMonsters(dropSpeed);
+      m.addMonsters(monsterDropSpeed);
     }
 
-    dropSpeed = dropSpeed * 1.03;
+    monsterDropSpeed = monsterDropSpeed * 1.03;
   }
+  // Change bullet
 
   
   //Update and draw bullet
   if (weapon.nextBullet()) {
     if(mousePressed){
-      weapon.fireBullet();
+      weapon.fireBullet(playerWeaponArmed);
     }
   }
   weapon.displayBulletsFired();
 
-
   // Check for Collision 
+
 
   // update and draw Player
   player.updatePlayer();
@@ -69,19 +79,18 @@ void draw() {
   }
 
   // Remove bullet
-  //weapon.removeBullet();
+  weapon.removeOutofWindowBullet();
 
-  println(frameRate);
 }
 
 boolean nextWave() {
-	if(delay <= 0) {
-		delay = 100;
-		delayCounter = delayCounter + 0.03;
+	if(waveDelay <= 0) {
+		waveDelay = 100;
+		waveDelayCounter = waveDelayCounter + 0.03;
 		return true;
 	}
 	else {
-		delay = delay - delayCounter;
+		waveDelay = waveDelay - waveDelayCounter;
 		return false;	
 	}
 }

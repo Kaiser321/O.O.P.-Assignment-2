@@ -2,12 +2,19 @@ class Weapon {
 
 	ArrayList<Bullet> bulletsFired = new ArrayList<Bullet>();
 	float locationX;
+	int[] weaponDamage = new int[4];
+	int bulletSpeed;
 	int bulletDelay;
-	Weapon() {
-		bulletDelay = 0;
+	int bulletDelayCounter;
+
+	Weapon(int bSpeed, int bDelay, int[] wDamage) {
+		weaponDamage = wDamage;
+		bulletSpeed = bSpeed;
+		bulletDelay = bDelay;
+		bulletDelayCounter = 0;
 	}
 
-	void fireBullet() {
+	void fireBullet(int weaponCode) {
 		locationX = mouseX;
     
     	if(locationX <= 50) {
@@ -16,7 +23,25 @@ class Weapon {
     	else if(locationX >= 550) {
     		locationX = 550; 
    		} 
-		bulletsFired.add(new Bullet(new PVector(locationX, 850), 10));
+   		//Use switch here to add different type of bullets
+		switch (weaponCode) {
+			case 0 :
+				bulletsFired.add(new RedBullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[0]));
+			break;	
+
+			case 1 :
+				bulletsFired.add(new GreenBullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[1]));
+			break;
+
+			case 2 :
+				bulletsFired.add(new BlueBullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[2]));	
+			
+			break;		
+
+			case 3 :
+				bulletsFired.add(new PurpleBullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[3]));
+			break;	
+		}
 	}
 
 	void displayBulletsFired() {
@@ -28,17 +53,28 @@ class Weapon {
 
 	boolean nextBullet() {
 
-		if(bulletDelay >= 0) {
-			bulletDelay--;
+		if(bulletDelayCounter >= 0) {
+			bulletDelayCounter--;
 			return false;
 		}
 		else{
-			bulletDelay = 10;
+			bulletDelayCounter = bulletDelay;
 			return true;
 		}
 	}
 
-	/*void removeBullet() {
+	void removeOutofWindowBullet() {
+		println(bulletsFired.size());
+		if(bulletsFired.size() > 1) {
+			if (bulletsFired.get(0).location.y < 0){
+				bulletsFired.remove(0);
+				println("Bullet Removed");
+			}
+		}
 	} 
-	*/
+
+	void removeBullet() {
+
+	}
+	
 }
