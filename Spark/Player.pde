@@ -1,25 +1,32 @@
 class Player {
-  int playerSize = 100;
-  float playerX;
+  PVector location;
+  PVector playerSize;
   
   Player() { 
+    location = new PVector(0, 900);
+    playerSize = new PVector(75, 100);
   }
   
   
   void updatePlayer() {
-    playerX = mouseX;
+    location.x = mouseX;
     
-    if(playerX <= 50) {
-      playerX = 50;
+    if(location.x <= 50) {
+      location.x = 50;
     }
-    else if(playerX >= 550) {
-     playerX = 550; 
+    else if(location.x >= 550) {
+     location.x = 550; 
     }  
   }
   
   void drawPlayer() {
     fill(255);
     rectMode(CENTER);
-    rect(playerX, 900, playerSize, playerSize);
+    rect(location.x, location.y, playerSize.x, playerSize.y);
+  }
+
+  void fireWeapon() {
+
+
   }
 }

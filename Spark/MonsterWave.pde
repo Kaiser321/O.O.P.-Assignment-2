@@ -9,10 +9,8 @@ class MonsterWave {
   }
 
   void addMonsters(float dropSpeed) {
-    
 
   	while (wave.size() < 6) {
-
       int r = (int)random(4);
 
       switch (r) {
@@ -34,11 +32,8 @@ class MonsterWave {
         case 3 :
           wave.add(new PurpleMonster(new PVector(startX, startY), dropSpeed));
           startX += 100;
-        break;    
-        
+        break;        
       }
-      println(r);
-
   	}
   }
 
