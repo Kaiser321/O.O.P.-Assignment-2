@@ -43,10 +43,14 @@ class MonsterWave {
       if (w.isDead() == false) {
         w.updateMonster();
         w.drawMonster();
+        w.displayHealthPoints();
       }
       else {
         w.updateMonster(); // Need to change to delete monster off arraylist
       }
     }
+  }
+  int getWaveSize() {
+    return wave.size();
   }
 }

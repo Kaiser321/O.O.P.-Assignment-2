@@ -1,4 +1,5 @@
 class GreenBullet extends Bullet {
+
 	GreenBullet(PVector fire, float bulletSpeed, int bulletDamage){
 		super(fire, bulletSpeed, bulletDamage);
 		damage = bulletDamage;
@@ -8,4 +9,6 @@ class GreenBullet extends Bullet {
 		stroke(0,100,0);
 		super.drawBullet();
 	}
+
+
 }

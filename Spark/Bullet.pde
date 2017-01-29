@@ -11,12 +11,22 @@ class Bullet {
 		size = 20;
 	}
 
+ 	float getX() {
+    	return location.x;
+  	}
+
+  	float getY() {
+    	return location.y;
+  	}
+
 	void updateBullet() {
 		location.sub(velocity);
 	}
 
-	void drawBullet() { // Use switch to fire different types of bullets depends on weapon armed
+	void drawBullet() { 
 		noFill();
-		rect(location.x, location.y, size, size);
+		rect(location.x, location.y, size, size + 10);
 	}
+
+	
 }

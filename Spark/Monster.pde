@@ -2,26 +2,36 @@ class Monster {
   PVector location;
   PVector velocity;
   int healthPoints;
+  int currentHealth;
   int size;
   
   Monster(PVector drop, float dropSpeed) {
     velocity = new PVector(0, dropSpeed);
     location = drop.get();
     healthPoints = 100;
+    currentHealth = healthPoints;
     size = 100;
   }
 
-  int getY() {
-    return (int)location.y;
+  float getX() {
+    return location.x;
+  }
+
+  float getY() {
+    return location.y;
   }
 
   boolean isDead() {
-  	if (healthPoints <= 0) {
+  	if (currentHealth <= 0) {
   		return true;
   	}
   	else {
   		return false;
   	}
+  }
+
+  void takeDamage(Weapon w, int k) {
+    currentHealth = currentHealth - w.doDamage(k);
   }
   
   void updateMonster() {
@@ -33,6 +43,12 @@ class Monster {
     rect(location.x, location.y, size, size);
   }
   
+  void displayHealthPoints() {
+    noFill();
+    stroke(255);
+    rect(location.x, location.y + 60, 75, 10);
+  }
   
+
   
 }

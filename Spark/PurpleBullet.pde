@@ -5,8 +5,10 @@ class PurpleBullet extends Bullet {
 		damage = bulletDamage;
 	}
 
-		void drawBullet() { 
+	void drawBullet() { 
 		stroke(128,0,128);
 		super.drawBullet();
 	}
+
+
 }

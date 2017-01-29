@@ -66,15 +66,26 @@ class Weapon {
 	void removeOutofWindowBullet() {
 		println(bulletsFired.size());
 		if(bulletsFired.size() > 1) {
-			if (bulletsFired.get(0).location.y < 0){
-				bulletsFired.remove(0);
-				println("Bullet Removed");
+			for(int i = bulletsFired.size() - 1; i >= 0; i--) {
+				Bullet b = bulletsFired.get(i);
+				if (b.getY() < 0){
+					bulletsFired.remove(b);
+					println("Deleted");
+				}
 			}
 		}
 	} 
 
-	void removeBullet() {
-
+	void removeBullet(int k) {
+		bulletsFired.remove(k);
 	}
-	
+
+	int doDamage(int k) {
+		if(bulletsFired.size() > 1){
+			return bulletsFired.get(k).damage;
+		}
+		else {
+			return 0;
+		}
+	}
 }
