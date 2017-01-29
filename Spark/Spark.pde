@@ -1,3 +1,4 @@
+
 /* Gobal Variables*/
 int width = 600, height = 1000;
 float monsterDropSpeed = 2; // How fast the waves drops
@@ -14,6 +15,7 @@ Weapon weapon; // Current Weapon armed
 
 void setup() {
   size(600, 1000);
+
 
   int[] playerWeaponDamage = new int[4]; // 0 = RedBullet, 1 = GreenBullet, 2 = BlueBullet, 3 = PurpleBullet
   int playerBulletSpeed = 0;
