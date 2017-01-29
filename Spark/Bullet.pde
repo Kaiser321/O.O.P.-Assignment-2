@@ -19,6 +19,7 @@ class Bullet {
     	return location.y;
   	}
 
+
 	void updateBullet() {
 		location.sub(velocity);
 	}
@@ -28,5 +29,8 @@ class Bullet {
 		rect(location.x, location.y, size, size + 10);
 	}
 
+	int getDamage() {
+		return damage;
+	}
 	
 }

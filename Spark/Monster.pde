@@ -30,12 +30,12 @@ class Monster {
   	}
   }
 
-  void takeDamage(Weapon w, int k) {
-    currentHealth = currentHealth - w.doDamage(k);
+  void takeDamage(Weapon w, int bulletIndex) {
+    currentHealth = currentHealth - w.doDamage(bulletIndex);
   }
   
   void updateMonster() {
-  	location.add(velocity);
+      location.add(velocity);
   }
  
   void drawMonster() {

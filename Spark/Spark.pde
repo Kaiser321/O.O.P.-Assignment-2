@@ -23,8 +23,6 @@ void setup() {
   size(600, 1000);
   //smooth();
 
-
-
   // Making the first wave
   waveSystem.add(new MonsterWave());
   for(MonsterWave m : waveSystem) {
@@ -38,11 +36,9 @@ void setup() {
 void draw() {
   
   background(0);
-  //println(frameRate);
 
 
-// Remove out of window bullet
-  weapon.removeOutofWindowBullet();
+
 
   // Display the wave
   for(MonsterWave m : waveSystem) {
@@ -59,6 +55,9 @@ void draw() {
 
     monsterDropSpeed = monsterDropSpeed * 1.03;
   }
+
+
+
   // Player Change bullet
   if(keyPressed) {
     if(key == 'q' || key == 'Q'){
@@ -84,7 +83,7 @@ void draw() {
   }
   weapon.displayBulletsFired();
 
-
+/*
   // Check for Collision 
   float monsterX, monsterY, bulletX, bulletY, monsterSize;
   for(int i = waveSystem.size() -1; i >= 0; i--){
@@ -94,7 +93,6 @@ void draw() {
       monsterX = m.wave.get(j).getX();
       monsterY = m.wave.get(j).getY();
       monsterSize = (m.wave.get(j).size) / 2;
-      println(monsterX, monsterY);
 
       for(int k = weapon.bulletsFired.size() -1; k >=0; k--){
         bulletX = weapon.bulletsFired.get(k).getX();
@@ -106,32 +104,16 @@ void draw() {
           }
         }
       }
-
-
-      
-
     }
   }
-
-
-
-
-
-
+*/
   // update and draw Player
   player.updatePlayer();
   player.drawPlayer();
 
 
-  // Remove MonsterWaves if they move off the window
-  if (waveSystem.size() > 0) {
-    if(waveSystem.get(0).wave.get(0).getY() >= 1100) {
-      waveSystem.remove(0);
-    }
-  }
-
-
-
+  // Remove out of window bullet
+  weapon.removeOutofWindowBullet();
 }
 
 boolean nextWave() {

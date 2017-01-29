@@ -39,18 +39,24 @@ class MonsterWave {
 
   void display() {
     
-    for(Monster w : wave) {
+    for(int i = wave.size() - 1; i >= 0; i--) {
+      Monster w = wave.get(i);
       if (w.isDead() == false) {
         w.updateMonster();
         w.drawMonster();
         w.displayHealthPoints();
       }
       else {
-        w.updateMonster(); // Need to change to delete monster off arraylist
+        wave.remove(w);
       }
     }
   }
+
   int getWaveSize() {
     return wave.size();
+  }
+
+  Monster getMonster(int index) {
+    return wave.get(index);
   }
 }
