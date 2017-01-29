@@ -8,19 +8,20 @@ float waveDelayCounter = 0.3; // Counter used to decrease the delay time as the 
 int playerWeaponArmed = 0;
 
 /* Declear Classes*/
-PImage playerShip,redMonster, greenMonster, blueMonster, purpleMonster;
+PImage playerShip;
 Player player; // Player Object
 ArrayList<MonsterWave> waveSystem ; // Arraylist for waves of monsters
 Weapon weapon; // Current Weapon armed
 
 void setup() {
   size(600, 1000);
-
-
+  
+  // Initionalize Player data
   int[] playerWeaponDamage = new int[4]; // 0 = RedBullet, 1 = GreenBullet, 2 = BlueBullet, 3 = PurpleBullet
   int playerBulletSpeed = 0;
   int playerBulletDelay = 0;
-
+  
+  // Read player data from file
   Table playerData = loadTable("playerData.csv", "header");
   
   for (TableRow row : playerData.rows()) {
@@ -35,8 +36,6 @@ void setup() {
 
   // Create Objects
   playerShip = loadImage("image/PlayerShip.png");
-
-
   player = new Player(); // Player Object
   waveSystem = new ArrayList<MonsterWave>(); // Arraylist for waves of monsters
   weapon = new Weapon(playerBulletSpeed, playerBulletDelay, playerWeaponDamage); // Current Weapon armed
@@ -142,6 +141,8 @@ void draw() {
 
 }
 
+
+// Spawn next wave
 boolean nextWave() {
 	if(waveDelay <= 0) {
 		waveDelay = 100;
@@ -154,6 +155,7 @@ boolean nextWave() {
 	}
 }
 
+// Check if there is a collision
 boolean checkCollision(float mX, float mY, float bX, float bY, float mSize, float bSize){
   if( ((bX + bSize) >= mX - mSize && (bX - bSize) <= mX + mSize) && (bY <= mY + mSize &&  bY >= mY) ){
     return true;
@@ -163,6 +165,7 @@ boolean checkCollision(float mX, float mY, float bX, float bY, float mSize, floa
   }
 }
 
+// If there is a collision, return the monster that's been hit
 int getCollisionIndex(float mX) {
   int index = 0;
   switch ((int)mX) {
