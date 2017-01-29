@@ -26,6 +26,7 @@ class Bullet {
 
 	void drawBullet() { 
 		noFill();
+		rectMode(CENTER);
 		rect(location.x, location.y, size, size + 10);
 	}
 

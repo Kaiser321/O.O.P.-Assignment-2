@@ -1,14 +1,17 @@
 class RedMonster extends Monster {
 
+	PImage redMonsterImage;
+
 	RedMonster(PVector drop, float dropSpeed) {
 		super(drop, dropSpeed);
 		healthPoints = 100;
 		currentHealth = healthPoints;
+		redMonsterImage = loadImage("image/RedMonster.png");
 	}
 
 	void drawMonster() {
-		fill(100, 0, 0); // Red 
-		super.drawMonster();
+		imageMode(CENTER);
+    	image(redMonsterImage,location.x, location.y, size, size);
 	}
 
 	void displayHealthPoints() {

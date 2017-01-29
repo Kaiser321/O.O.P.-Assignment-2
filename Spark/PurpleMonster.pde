@@ -1,14 +1,17 @@
 class PurpleMonster extends Monster {
 
+	PImage purpleMonsterImage;
+
 	PurpleMonster(PVector drop, float dropSpeed) {
 		super(drop, dropSpeed);
 		healthPoints = 250;
 		currentHealth = healthPoints;
+		purpleMonsterImage = loadImage("image/PurpleMonster.png");
 	}
 
 	void drawMonster() {
-		fill(128,0,128); // Blue
-		super.drawMonster();
+		imageMode(CENTER);
+    	image(purpleMonsterImage,location.x, location.y, size, size);
 	}
 
 	void displayHealthPoints() {

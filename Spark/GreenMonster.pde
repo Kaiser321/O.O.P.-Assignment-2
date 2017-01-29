@@ -1,14 +1,17 @@
 class GreenMonster extends Monster {
 
+	PImage greenMonsterImage;
+
 	GreenMonster(PVector drop, float dropSpeed) {
 		super(drop, dropSpeed);
 		healthPoints = 150;
 		currentHealth = healthPoints;
+		greenMonsterImage = loadImage("image/GreenMonster.png");
 	}
 
 	void drawMonster() {
-		fill(0, 100, 0); // Green
-		super.drawMonster();
+		imageMode(CENTER);
+    	image(greenMonsterImage,location.x, location.y, size, size);
 	}
 
 	void displayHealthPoints() {

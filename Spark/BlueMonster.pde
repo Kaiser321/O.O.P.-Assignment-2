@@ -1,14 +1,17 @@
 class BlueMonster extends Monster {
 
+	PImage blueMonsterImage;
+
 	BlueMonster(PVector drop, float dropSpeed) {
 		super(drop, dropSpeed);
 		healthPoints = 200;
 		currentHealth = healthPoints;
+		blueMonsterImage = loadImage("image/BlueMonster.png");
 	}
 
 	void drawMonster() {
-		fill(0, 0, 100); // Blue
-		super.drawMonster();
+		imageMode(CENTER);
+    	image(blueMonsterImage,location.x, location.y, size, size);
 	}
 
 	void displayHealthPoints() {

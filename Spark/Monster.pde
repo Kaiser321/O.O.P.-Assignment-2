@@ -40,13 +40,13 @@ class Monster {
   }
  
   void drawMonster() {
-    noStroke();
-    rect(location.x, location.y, size, size);
+
   }
   
   void displayHealthPoints() {
     noFill();
     stroke(255);
+    rectMode(CENTER);
     rect(location.x, location.y + 60, 75, 10);
   }
   

@@ -20,9 +20,8 @@ class Player {
   }
   
   void drawPlayer() {
-    fill(255);
-    rectMode(CENTER);
-    rect(location.x, location.y, playerSize.x, playerSize.y);
+    imageMode(CENTER);
+    image(playerShip,location.x, location.y, playerSize.x, playerSize.y);
   }
 
 }
