@@ -30,10 +30,11 @@ class Monster {
   	}
   }
 
-  void takeDamage(Weapon w, int bulletIndex) {
-    currentHealth = currentHealth - w.doDamage(bulletIndex);
+  void takeDamage(Bullet currentBullet) {
+    this.currentHealth -= currentBullet.getDamage();
   }
   
+
   void updateMonster() {
       location.add(velocity);
   }
@@ -49,6 +50,8 @@ class Monster {
     rect(location.x, location.y + 60, 75, 10);
   }
   
-
+  void removeMonster() {
+    location.set(700, location.y);
+  }
   
 }

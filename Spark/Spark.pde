@@ -21,7 +21,6 @@ Weapon weapon = new Weapon(playerBulletSpeed, playerBulletDelay, playerWeaponDam
 
 void setup() {
   size(600, 1000);
-  //smooth();
 
   // Making the first wave
   waveSystem.add(new MonsterWave());
@@ -31,21 +30,14 @@ void setup() {
 
   weapon.fireBullet(0);
 
+
 }
 
 void draw() {
   
   background(0);
 
-
-
-
-  // Display the wave
-  for(MonsterWave m : waveSystem) {
-    m.display();
-  }
-
-  // Making the next wave and display Monsters
+  // Making the next wave and increase drop speed
   if(nextWave()) {
   	waveSystem.add(new MonsterWave());
 
@@ -53,9 +45,63 @@ void draw() {
       m.addMonsters(monsterDropSpeed);
     }
 
-    monsterDropSpeed = monsterDropSpeed * 1.03;
+    monsterDropSpeed = monsterDropSpeed * 1.01;
   }
 
+  // Display Monster waves
+  for(MonsterWave m : waveSystem) {
+    m.displayWave();
+  }
+
+  // Remove out of window bullet
+  weapon.removeOutofWindowBullet();
+
+  //Update and draw bullet
+  if (weapon.nextBullet()) {
+    if(mousePressed){
+      weapon.fireBullet(playerWeaponArmed);
+    }
+  }
+  weapon.displayBulletsFired();
+
+
+  // Check for Collision
+  float monsterX, monsterY, bulletX, bulletY, monsterSize, bulletSize;
+
+  checkDeadWave();
+
+  for(int waveIndex = waveSystem.size() - 1; waveIndex >= 0; waveIndex--) {
+    MonsterWave wave = waveSystem.get(waveIndex);
+
+    wave.checkDeadMonsters();
+    
+    for(int monsterIndex = wave.getWaveSize() - 1; monsterIndex >= 0; monsterIndex--) {
+
+      for(int bulletIndex = weapon.getBulletsFiredSize() -1; bulletIndex >= 0;  bulletIndex--) {
+        
+        Bullet currentBullet = weapon.getBullet(bulletIndex);
+        Monster currentMonster = wave.getMonster(monsterIndex);
+
+        monsterX = currentMonster.getX();
+        monsterY = currentMonster.getY();
+        monsterSize = (currentMonster.size) / 2;
+
+        bulletX = currentBullet.getX();
+        bulletY = currentBullet.getY();
+        bulletSize = (currentBullet.size) / 2;
+
+
+
+        if(checkCollision(monsterX, monsterY, bulletX, bulletY, monsterSize, bulletSize)) {
+          int collisionIndex = getCollisionIndex(monsterX);
+          currentMonster = wave.getMonster(collisionIndex);
+          currentMonster.takeDamage(currentBullet);
+          weapon.removeBullet(currentBullet);
+        }
+        currentMonster = wave.getMonster(monsterIndex);
+      }
+    }
+  }
 
 
   // Player Change bullet
@@ -74,52 +120,18 @@ void draw() {
     }
   }
 
-  
-  //Update and draw bullet
-  if (weapon.nextBullet()) {
-    if(mousePressed){
-      weapon.fireBullet(playerWeaponArmed);
-    }
-  }
-  weapon.displayBulletsFired();
-
-/*
-  // Check for Collision 
-  float monsterX, monsterY, bulletX, bulletY, monsterSize;
-  for(int i = waveSystem.size() -1; i >= 0; i--){
-    MonsterWave m = waveSystem.get(i);
-    for(int j = m.getWaveSize() -1; j >= 0; j--){
-
-      monsterX = m.wave.get(j).getX();
-      monsterY = m.wave.get(j).getY();
-      monsterSize = (m.wave.get(j).size) / 2;
-
-      for(int k = weapon.bulletsFired.size() -1; k >=0; k--){
-        bulletX = weapon.bulletsFired.get(k).getX();
-        bulletY = weapon.bulletsFired.get(k).getY();
-        if( (bulletX >= monsterX - monsterSize || bulletX <= monsterX + monsterSize) && (bulletY <= monsterY + monsterSize) ){
-          if(m.wave.get(j).isDead() == false) {
-            weapon.removeBullet(k);
-            m.wave.get(j).takeDamage(weapon, k);
-          }
-        }
-      }
-    }
-  }
-*/
   // update and draw Player
   player.updatePlayer();
   player.drawPlayer();
 
 
-  // Remove out of window bullet
-  weapon.removeOutofWindowBullet();
+
 }
 
 boolean nextWave() {
 	if(waveDelay <= 0) {
 		waveDelay = 100;
-		waveDelayCounter = waveDelayCounter + 0.03;
+		waveDelayCounter = waveDelayCounter + 0.02;
 		return true;
 	}
 	else {
@@ -127,3 +139,60 @@ boolean nextWave() {
 		return false;	
 	}
 }
+
+boolean checkCollision(float mX, float mY, float bX, float bY, float mSize, float bSize){
+
+
+  if( ((bX + bSize) >= mX - mSize && (bX - bSize) <= mX + mSize) && (bY <= mY + mSize &&  bY >= mY) ){
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+int getCollisionIndex(float mX) {
+  int index = 0;
+  switch ((int)mX) {
+      case  50:
+        index = 0;
+      break;
+
+      case 150:
+        index = 1;
+      break;
+
+      case 250:
+        index = 2;
+      break;      
+
+      case 350:
+        index = 3;
+      break; 
+
+      case 450:
+        index = 4;
+      break; 
+
+      case 550:
+        index = 5;
+      break; 
+  }
+  return index;
+}
+
+
+void checkDeadWave() {
+  for(int waveIndex = waveSystem.size() - 1; waveIndex >= 0; waveIndex--) {
+    MonsterWave wave = waveSystem.get(waveIndex);
+
+    if(wave.checkDeadMonsters() >= 6) {
+      waveSystem.remove(wave);
+    }
+
+    if(wave.getMonster(waveIndex).getY() >= 1100){
+      waveSystem.remove(wave);
+    }
+  }
+}
+

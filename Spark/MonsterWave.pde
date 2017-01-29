@@ -9,9 +9,9 @@ class MonsterWave {
   }
 
   void addMonsters(float dropSpeed) {
-
   	while (wave.size() < 6) {
       int r = (int)random(4);
+
 
       switch (r) {
         case 0 :
@@ -32,23 +32,29 @@ class MonsterWave {
         case 3 :
           wave.add(new PurpleMonster(new PVector(startX, startY), dropSpeed));
           startX += 100;
-        break;        
+        break;
       }
   	}
   }
 
-  void display() {
-    
+  int checkDeadMonsters() {
+    int numDead = 0;
     for(int i = wave.size() - 1; i >= 0; i--) {
       Monster w = wave.get(i);
-      if (w.isDead() == false) {
-        w.updateMonster();
-        w.drawMonster();
-        w.displayHealthPoints();
+      if(w.isDead()){
+        w.removeMonster();
+        numDead++;
       }
-      else {
-        wave.remove(w);
-      }
+    }
+    return numDead;
+  }
+
+  void displayWave() {
+    for(int i = wave.size() - 1; i >= 0; i--) {
+      Monster w = wave.get(i);
+      w.updateMonster();
+      w.drawMonster();
+      w.displayHealthPoints();
     }
   }
 
@@ -56,7 +62,7 @@ class MonsterWave {
     return wave.size();
   }
 
-  Monster getMonster(int index) {
-    return wave.get(index);
+  Monster getMonster(int monsterIndex) {
+    return wave.get(monsterIndex);
   }
 }

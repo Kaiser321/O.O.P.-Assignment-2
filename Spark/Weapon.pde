@@ -63,10 +63,6 @@ class Weapon {
 		}
 	}
 
-	Bullet getBullet(int bulletIndex) {
-		return bulletsFired.get(bulletIndex);
-	}
-
 	void removeOutofWindowBullet() {
 		if(bulletsFired.size() > 1) {
 			for(int i = bulletsFired.size() - 1; i >= 0; i--) {
@@ -78,11 +74,16 @@ class Weapon {
 		}
 	} 
 
-	void removeBullet(int k) {
-		bulletsFired.remove(k);
+	Bullet getBullet(int bulletIndex) {
+		return bulletsFired.get(bulletIndex);
 	}
 
-	//int doDamage(int bulletIndex) {
+	void removeBullet(Bullet currentBullet) {
+		bulletsFired.remove(currentBullet);
+	}
 
-	//}
+	int getBulletsFiredSize() {
+		return bulletsFired.size();
+	}
+
 }
