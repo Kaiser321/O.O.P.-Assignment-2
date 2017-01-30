@@ -4,6 +4,8 @@ class Monster {
   int healthPoints;
   int currentHealth;
   int size;
+  String monsterColor;
+
   
   Monster(PVector drop, float dropSpeed) {
     velocity = new PVector(0, dropSpeed);
@@ -11,6 +13,7 @@ class Monster {
     healthPoints = 100;
     currentHealth = healthPoints;
     size = 100;
+    monsterColor = "red";
   }
 
   float getX() {
@@ -30,8 +33,15 @@ class Monster {
   	}
   }
 
-  void takeDamage(Bullet currentBullet) {
-    this.currentHealth -= currentBullet.getDamage();
+  boolean takeDamage(Bullet currentBullet) {
+    if(this.getColor() == currentBullet.getColor()) {
+      this.currentHealth -= currentBullet.getDamage();
+      return true;
+    }
+    else {
+      this.currentHealth -= 0;
+      return false;
+    }
   }
   
 
@@ -52,6 +62,10 @@ class Monster {
   
   void removeMonster() {
     location.set(700, location.y);
+  }
+
+  String getColor() {
+    return monsterColor;
   }
   
 }

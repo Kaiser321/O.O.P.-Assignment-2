@@ -1,5 +1,7 @@
 class Weapon {
 
+	PImage bulletImpactImage;
+
 	ArrayList<Bullet> bulletsFired = new ArrayList<Bullet>();
 	float locationX;
 	int[] weaponDamage = new int[4];
@@ -12,6 +14,7 @@ class Weapon {
 		bulletSpeed = bSpeed;
 		bulletDelay = bDelay;
 		bulletDelayCounter = 0;
+		bulletImpactImage = loadImage("image/BulletImpact.png");
 	}
 
 	void fireBullet(int weaponCode) {
@@ -78,8 +81,13 @@ class Weapon {
 		return bulletsFired.get(bulletIndex);
 	}
 
-	void removeBullet(Bullet currentBullet) {
+	void removeBullet(Bullet currentBullet, boolean damage) {
 		bulletsFired.remove(currentBullet);
+		if(damage)
+		{
+			imageMode(CENTER);
+    		image(bulletImpactImage, currentBullet.getX(), currentBullet.getY(), 47, 57);
+    	}
 	}
 
 	int getBulletsFiredSize() {

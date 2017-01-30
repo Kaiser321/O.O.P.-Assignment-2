@@ -1,11 +1,13 @@
 class MonsterWave {
   ArrayList<Monster> wave;
   int startX, startY;
+    PImage explodeImage;
 
   MonsterWave() {
   	wave = new ArrayList <Monster>();
   	startX = 50;
   	startY = 0;
+    explodeImage = loadImage("image/MonsterExplode.png");
   }
 
   void addMonsters(float dropSpeed) {
@@ -42,6 +44,8 @@ class MonsterWave {
     for(int i = wave.size() - 1; i >= 0; i--) {
       Monster w = wave.get(i);
       if(w.isDead()){
+        imageMode(CENTER);
+        image(explodeImage, w.getX(), w.getY(), 120, 120);
         w.removeMonster();
         numDead++;
       }

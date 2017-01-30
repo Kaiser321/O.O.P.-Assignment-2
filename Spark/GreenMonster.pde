@@ -4,9 +4,9 @@ class GreenMonster extends Monster {
 
 	GreenMonster(PVector drop, float dropSpeed) {
 		super(drop, dropSpeed);
-		healthPoints = 150;
 		currentHealth = healthPoints;
 		greenMonsterImage = loadImage("image/GreenMonster.png");
+		monsterColor = "green";
 	}
 
 	void drawMonster() {

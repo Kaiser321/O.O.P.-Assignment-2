@@ -3,6 +3,7 @@ class Bullet {
 	PVector velocity;
 	int damage;
 	int size;
+	String bulletColor;
 
 	Bullet(PVector fire, float bulletSpeed, int bulletDamage){
 		velocity = new PVector(0, bulletSpeed);
@@ -25,13 +26,15 @@ class Bullet {
 	}
 
 	void drawBullet() { 
-		noFill();
-		rectMode(CENTER);
-		rect(location.x, location.y, size, size + 10);
+
 	}
 
 	int getDamage() {
 		return damage;
+	}
+
+	String getColor() {
+		return bulletColor;
 	}
 	
 }

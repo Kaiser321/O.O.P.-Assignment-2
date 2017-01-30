@@ -8,38 +8,21 @@ float waveDelayCounter = 0.3; // Counter used to decrease the delay time as the 
 int playerWeaponArmed = 0;
 
 /* Declear Classes*/
-PImage playerShip;
 Player player; // Player Object
 ArrayList<MonsterWave> waveSystem ; // Arraylist for waves of monsters
-Weapon weapon; // Current Weapon armed
 
 void setup() {
   size(600, 1000);
-  
-  // Initionalize Player data
-  int[] playerWeaponDamage = new int[4]; // 0 = RedBullet, 1 = GreenBullet, 2 = BlueBullet, 3 = PurpleBullet
-  int playerBulletSpeed = 0;
-  int playerBulletDelay = 0;
-  
+
+ 
   // Read player data from file
   Table playerData = loadTable("playerData.csv", "header");
-  
   for (TableRow row : playerData.rows()) {
-    playerWeaponDamage[0] = row.getInt("RedBullet");
-    playerWeaponDamage[1] = row.getInt("GreenBullet");
-    playerWeaponDamage[2] = row.getInt("BlueBullet");
-    playerWeaponDamage[3] = row.getInt("PurpleBullet");
-
-    playerBulletSpeed = row.getInt("playerBulletSpeed");
-    playerBulletDelay = row.getInt("playerBulletDelay");
+    player = new Player(row.getInt("RedBullet"), row.getInt("GreenBullet"), row.getInt("BlueBullet"), row.getInt("PurpleBullet"), row.getInt("playerBulletSpeed"), row.getInt("playerBulletDelay"));
   }
-
   // Create Objects
-  playerShip = loadImage("image/PlayerShip.png");
-  player = new Player(); // Player Object
   waveSystem = new ArrayList<MonsterWave>(); // Arraylist for waves of monsters
-  weapon = new Weapon(playerBulletSpeed, playerBulletDelay, playerWeaponDamage); // Current Weapon armed
-
+  
   // Making the first wave
   waveSystem.add(new MonsterWave());
   for(MonsterWave m : waveSystem) {
@@ -47,11 +30,12 @@ void setup() {
   }
 
   // Load first bullet
-  weapon.fireBullet(0);
+  player.getWeapon().fireBullet(0);
 
 }
 
 void draw() {
+  println(frameRate);
   background(0);
 
   // Making the next wave and increase drop speed
@@ -71,15 +55,15 @@ void draw() {
   }
 
   // Remove out of window bullet
-  weapon.removeOutofWindowBullet();
+  player.getWeapon().removeOutofWindowBullet();
 
   // Update and draw bullet
-  if (weapon.nextBullet()) {
+  if (player.getWeapon().nextBullet()) {
     if(mousePressed){
-      weapon.fireBullet(playerWeaponArmed);
+      player.getWeapon().fireBullet(playerWeaponArmed);
     }
   }
-  weapon.displayBulletsFired();
+  player.getWeapon().displayBulletsFired();
 
 
   // Check for Collision
@@ -94,9 +78,9 @@ void draw() {
     
     for(int monsterIndex = wave.getWaveSize() - 1; monsterIndex >= 0; monsterIndex--) {
 
-      for(int bulletIndex = weapon.getBulletsFiredSize() -1; bulletIndex >= 0;  bulletIndex--) {
+      for(int bulletIndex = player.getWeapon().getBulletsFiredSize() -1; bulletIndex >= 0;  bulletIndex--) {
         
-        Bullet currentBullet = weapon.getBullet(bulletIndex);
+        Bullet currentBullet = player.getWeapon().getBullet(bulletIndex);
         Monster currentMonster = wave.getMonster(monsterIndex);
 
         monsterX = currentMonster.getX();
@@ -110,8 +94,8 @@ void draw() {
         if(checkCollision(monsterX, monsterY, bulletX, bulletY, monsterSize, bulletSize)) {
           int collisionIndex = getCollisionIndex(monsterX);
           currentMonster = wave.getMonster(collisionIndex);
-          currentMonster.takeDamage(currentBullet);
-          weapon.removeBullet(currentBullet);
+          boolean tookDamage = currentMonster.takeDamage(currentBullet);
+          player.getWeapon().removeBullet(currentBullet, tookDamage);
         }
         currentMonster = wave.getMonster(monsterIndex);
       }
@@ -121,16 +105,16 @@ void draw() {
 
   // Player Change bullet
   if(keyPressed) {
-    if(key == 'q' || key == 'Q'){
+    if(key == '1'){
       playerWeaponArmed = 0;
     }
-    else if(key == 'w' || key == 'W'){
+    else if(key == '2'){
       playerWeaponArmed = 1;
     }
-    else if(key == 'e' || key == 'E'){
+    else if(key == '3'){
       playerWeaponArmed = 2;
     }
-    else if(key == 'r' || key == 'R'){
+    else if(key == '4'){
       playerWeaponArmed = 3;
     }
   }
@@ -138,6 +122,7 @@ void draw() {
   // Update and draw Player
   player.updatePlayer();
   player.drawPlayer();
+  
 
 }
 
@@ -157,7 +142,7 @@ boolean nextWave() {
 
 // Check if there is a collision
 boolean checkCollision(float mX, float mY, float bX, float bY, float mSize, float bSize){
-  if( ((bX + bSize) >= mX - mSize && (bX - bSize) <= mX + mSize) && (bY <= mY + mSize &&  bY >= mY) ){
+  if( ((bX + bSize) >= mX - mSize && (bX - bSize) <= mX + mSize) && ( (bY - bSize) <= mY + mSize &&  bY >= mY) ){
     return true;
   }
   else {
