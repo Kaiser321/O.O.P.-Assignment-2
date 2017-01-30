@@ -67,5 +67,22 @@ class Monster {
   String getColor() {
     return monsterColor;
   }
-  
+
+  DropItem dropItem(PVector startLocation) {
+    int r = (int)random(2);
+
+    DropItem item = new DropItem(startLocation);
+
+    switch(r) {
+      case 0 :
+        item = new Coin(startLocation);
+      break;  
+
+      case 1 :
+        item = new Diamond(startLocation);
+      break;  
+    }
+
+    return item;
+  } 
 }

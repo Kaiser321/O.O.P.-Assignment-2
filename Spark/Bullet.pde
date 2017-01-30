@@ -20,7 +20,6 @@ class Bullet {
     	return location.y;
   	}
 
-
 	void updateBullet() {
 		location.sub(velocity);
 	}

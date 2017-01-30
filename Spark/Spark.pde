@@ -10,10 +10,11 @@ int playerWeaponArmed = 0;
 /* Declear Classes*/
 Player player; // Player Object
 ArrayList<MonsterWave> waveSystem ; // Arraylist for waves of monsters
+ArrayList<DropItem> dropingItems = new ArrayList<DropItem>();
 
 void setup() {
   size(600, 1000);
-
+  smooth();
  
   // Read player data from file
   Table playerData = loadTable("playerData.csv", "header");
@@ -56,6 +57,7 @@ void draw() {
 
   // Remove out of window bullet
   player.getWeapon().removeOutofWindowBullet();
+  removeOutofWindowItem();
 
   // Update and draw bullet
   if (player.getWeapon().nextBullet()) {
@@ -75,6 +77,12 @@ void draw() {
     MonsterWave wave = waveSystem.get(waveIndex);
 
     wave.checkDeadMonsters();
+
+    for(DropItem i : dropingItems) {
+      i.updateItems();
+      i.displayItems();
+    }
+
     
     for(int monsterIndex = wave.getWaveSize() - 1; monsterIndex >= 0; monsterIndex--) {
 
@@ -193,5 +201,16 @@ void checkDeadWave() {
     if(wave.getMonster(waveIndex).getY() >= 1100){
       waveSystem.remove(wave);
     }
+  }
+}
+
+void removeOutofWindowItem() {
+  if(dropingItems.size() > 1) {
+      for(int i = dropingItems.size() -1; i >= 0; i--) {
+        DropItem item = dropingItems.get(i);
+        if(item.getY() >= 1100){
+          dropingItems.remove(item);
+        }
+      }
   }
 }

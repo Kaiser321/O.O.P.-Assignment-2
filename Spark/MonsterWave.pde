@@ -13,8 +13,6 @@ class MonsterWave {
   void addMonsters(float dropSpeed) {
   	while (wave.size() < 6) {
       int r = (int)random(4);
-
-
       switch (r) {
         case 0 :
           wave.add(new RedMonster(new PVector(startX, startY), dropSpeed));
@@ -43,9 +41,13 @@ class MonsterWave {
     int numDead = 0;
     for(int i = wave.size() - 1; i >= 0; i--) {
       Monster w = wave.get(i);
+
       if(w.isDead()){
         imageMode(CENTER);
         image(explodeImage, w.getX(), w.getY(), 120, 120);
+        if(w.getX() < 600) {
+          dropingItems.add(w.dropItem(w.location));
+        }
         w.removeMonster();
         numDead++;
       }
