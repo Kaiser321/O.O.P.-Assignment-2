@@ -1,4 +1,3 @@
-
 /* Gobal Variables*/
 int width = 600, height = 1000;
 float monsterDropSpeed = 2; // How fast the waves drops
@@ -47,7 +46,7 @@ void draw() {
       m.addMonsters(monsterDropSpeed);
     }
 
-    monsterDropSpeed = monsterDropSpeed * 1.01;
+    monsterDropSpeed = monsterDropSpeed * 1.00;
   }
 
   // Display Monster waves
@@ -143,7 +142,7 @@ void draw() {
 boolean nextWave() {
 	if(waveDelay <= 0) {
 		waveDelay = 100;
-		waveDelayCounter = waveDelayCounter + 0.02;
+		waveDelayCounter = waveDelayCounter + 0.00;
 		return true;
 	}
 	else {
@@ -154,7 +153,7 @@ boolean nextWave() {
 
 // Check if there is a collision
 boolean checkCollision(float mX, float mY, float bX, float bY, float mSize, float bSize){
-  if( ((bX + bSize) >= mX - mSize && (bX - bSize) <= mX + mSize) && ( (bY - bSize) <= mY + mSize &&  bY >= mY) ){
+  if( ((bX + bSize) >= mX - mSize && (bX - bSize) <= mX + mSize) && ( (bY - bSize) <= mY + mSize &&  bY >= mY + (mSize/2)) ){
     return true;
   }
   else {
@@ -202,7 +201,7 @@ void checkDeadWave() {
       waveSystem.remove(wave);
     }
 
-    if(wave.getMonster(waveIndex).getY() >= 1100){
+    if(wave.getMonster(waveIndex).getY() >= 950){
       waveSystem.remove(wave);
     }
   }
@@ -212,7 +211,7 @@ void removeOutofWindowItem() {
   if(dropingItems.size() > 1) {
       for(int i = dropingItems.size() -1; i >= 0; i--) {
         DropItem item = dropingItems.get(i);
-        if(item.getY() >= 1100){
+        if(item.getY() >= 1000){
           dropingItems.remove(item);
         }
       }

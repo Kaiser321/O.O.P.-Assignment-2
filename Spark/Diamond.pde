@@ -1,13 +1,15 @@
 class Diamond extends DropItem {
+	PImage diamondImage;
 
 	Diamond(PVector startLocation) {
 		super(startLocation);
 		value = 10;
+		diamondImage = loadImage("image/Diamond.png");
 	}
 
 
 	void displayItems() {
-		fill(128, 0, 128);
-		ellipse(location.x, location.y, 30, 30);
+   		imageMode(CENTER);
+    	image(diamondImage, location.x, location.y, size, size);
 	}
 }

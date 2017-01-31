@@ -69,19 +69,16 @@ class Monster {
   }
 
   DropItem dropItem(PVector startLocation) {
-    int r = (int)random(2);
+    float r = random(1);
 
     DropItem item = new DropItem(startLocation);
-
-    switch(r) {
-      case 0 :
-        item = new Coin(startLocation);
-      break;  
-
-      case 1 :
-        item = new Diamond(startLocation);
-      break;  
+    if (r > 0.2) {
+      item = new Coin(startLocation);
     }
+    else if (r < 0.2) {
+      item = new Diamond(startLocation);
+    }
+
 
     return item;
   } 
