@@ -42,12 +42,15 @@ void draw() {
   background(0);
   println(moneyThisRound);
 
+    checkDeadWave();
+
   // Making the next wave and increase drop speed
   if(nextWave()) {
   	waveSystem.add(new MonsterWave());
 
-  	for(MonsterWave m : waveSystem) {
-      m.addMonsters(monsterDropSpeed);
+  	for(MonsterWave wave : waveSystem) {
+      wave.checkDeadMonsters();
+      wave.addMonsters(monsterDropSpeed);
     }
 
     monsterDropSpeed = monsterDropSpeed * 1.00;
@@ -79,7 +82,6 @@ void draw() {
       i.displayItems();
     }
 
-
   // Check for Monster to Player Collision
   monsterVbulletCollision();
 
@@ -106,8 +108,6 @@ void draw() {
   // Update and draw Player
   player.updatePlayer();
   player.drawPlayer();
-  
-
 }
 
 
@@ -127,12 +127,10 @@ boolean nextWave() {
 void monsterVbulletCollision() {
   float monsterX, monsterY, bulletX, bulletY, monsterSize, bulletSize;
 
-  checkDeadWave();
+
 
   for(int waveIndex = waveSystem.size() - 1; waveIndex >= 0; waveIndex--) {
     MonsterWave wave = waveSystem.get(waveIndex);
-
-    wave.checkDeadMonsters();
 
     for(int monsterIndex = wave.getWaveSize() - 1; monsterIndex >= 0; monsterIndex--) {
 
