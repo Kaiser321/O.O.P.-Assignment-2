@@ -40,15 +40,14 @@ class MonsterWave {
   int checkDeadMonsters() {
     int numDead = 0;
     for(int i = wave.size() - 1; i >= 0; i--) {
-      Monster w = wave.get(i);
-
-      if(w.isDead()){
+      Monster m = wave.get(i);
+      if(m.isDead()){
         imageMode(CENTER);
-        image(explodeImage, w.getX(), w.getY(), 120, 120);
-        if(w.getX() < 600) {
-          dropingItems.add(w.dropItem(w.location));
+        image(explodeImage, m.getX(), m.getY(), 120, 120);
+        if(m.getX() < 600) {
+          dropingItems.add(m.dropItem(m.location));
         }
-        w.removeMonster();
+        m.removeMonster();
         numDead++;
       }
     }
