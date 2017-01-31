@@ -4,6 +4,7 @@ class DropItem {
 	PVector velocity;
 	PVector acceleration;
 	int value;
+  int size;
 
 	DropItem(PVector startLocation) {
 		if(startLocation.x == 50) {
@@ -29,6 +30,7 @@ class DropItem {
 
 		location = startLocation.copy();
 		value = 1;
+    size = 40;
 	}
 
 	void updateItems() {

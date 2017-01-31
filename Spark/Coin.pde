@@ -1,13 +1,14 @@
 class Coin extends DropItem {
-
+  PImage coinImage;
 	Coin(PVector startLocation) {
 		super(startLocation);
 		value = 1;
+    coinImage = loadImage("image/Coin.png");
 	}
 
 
 	void displayItems() {
-		fill(255);
-		ellipse(location.x, location.y, 30, 30);
+    imageMode(CENTER);
+    image(coinImage, location.x, location.y, size, size);
 	}
 }
