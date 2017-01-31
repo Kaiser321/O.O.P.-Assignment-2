@@ -57,7 +57,7 @@ void draw() {
 
   // Remove out of window bullet
   player.getWeapon().removeOutofWindowBullet();
-  removeOutofWindowItem();
+  
 
   // Update and draw bullet
   if (player.getWeapon().nextBullet()) {
@@ -66,6 +66,15 @@ void draw() {
     }
   }
   player.getWeapon().displayBulletsFired();
+  
+  // Remove out of window Items
+  removeOutofWindowItem();
+  
+  // Update and draw Drop Items
+  for(DropItem i : dropingItems) {
+      i.updateItems();
+      i.displayItems();
+    }
 
 
   // Check for Collision
@@ -77,11 +86,6 @@ void draw() {
     MonsterWave wave = waveSystem.get(waveIndex);
 
     wave.checkDeadMonsters();
-
-    for(DropItem i : dropingItems) {
-      i.updateItems();
-      i.displayItems();
-    }
 
     
     for(int monsterIndex = wave.getWaveSize() - 1; monsterIndex >= 0; monsterIndex--) {
