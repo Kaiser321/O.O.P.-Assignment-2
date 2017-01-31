@@ -1,7 +1,7 @@
 class MonsterWave {
   ArrayList<Monster> wave;
   int startX, startY;
-    PImage explodeImage;
+  PImage explodeImage;
 
   MonsterWave() {
   	wave = new ArrayList <Monster>();

@@ -4,7 +4,7 @@ class DropItem {
 	PVector velocity;
 	PVector acceleration;
 	int value;
-  int size;
+  	int size;
 
 	DropItem(PVector startLocation) {
 		if(startLocation.x == 50) {
@@ -48,5 +48,9 @@ class DropItem {
 
 	float getY() {
 		return location.y;
+	}
+
+	int getItemValue() {
+		return value;
 	}
 }

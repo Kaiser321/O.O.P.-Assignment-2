@@ -1,2 +1,2 @@
-RedBullet,GreenBullet,BlueBullet,PurpleBullet,playerBulletSpeed,playerBulletDelay
-25,25,25,25,10,5
+RedBullet,GreenBullet,BlueBullet,PurpleBullet,playerBulletSpeed,playerBulletDelay,playerMoney
+25,25,25,25,10,5,10
