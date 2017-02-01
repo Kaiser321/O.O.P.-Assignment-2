@@ -8,10 +8,10 @@ class DropItem {
 
 	DropItem(PVector startLocation) {
 		if(startLocation.x == 50) {
-			velocity = new PVector(random(0, 2), random(-3, -1));
+			velocity = new PVector(random(0, 0.5), random(-3, -1));
 		}
 		else if (startLocation.x == 550) {
-			velocity = new PVector(random(-2, 0), random(-3, -1));	
+			velocity = new PVector(random(-0.5, 0), random(-3, -1));	
 		}
 		else if(startLocation.x >= 150) {
 			velocity = new PVector(random(-0.5, 0.5), random(-3, -1));
@@ -20,13 +20,13 @@ class DropItem {
 			velocity = new PVector(random(-0.5, 0.5), random(-3, -1));
 		}
 		else if(startLocation.x >= 250 || startLocation.x <= 450) {
-			velocity = new PVector(random(-2, 2), random(-3, -1));
+			velocity = new PVector(random(-0.5, 0.5), random(-3, -1));
 		}
 		else if(startLocation.x >= 350 || startLocation.x <= 450) {
-			velocity = new PVector(random(-2, 2), random(-3, -1));
+			velocity = new PVector(random(-0.5, 0.5), random(-3, -1));
 		}
 
-		acceleration = new PVector(0, 0.05);
+		acceleration = new PVector(0, 0.3);
 
 		location = startLocation.copy();
 		value = 1;

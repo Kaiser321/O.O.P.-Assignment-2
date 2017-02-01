@@ -54,7 +54,6 @@ class Weapon {
 	}
 
 	boolean nextBullet() {
-
 		if(bulletDelayCounter >= 0) {
 			bulletDelayCounter--;
 			return false;

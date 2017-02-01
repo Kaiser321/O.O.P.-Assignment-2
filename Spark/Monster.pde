@@ -72,10 +72,10 @@ class Monster {
     float r = random(1);
 
     DropItem item = new DropItem(startLocation);
-    if (r > 0.2) {
+    if (r > 0.1) {
       item = new Coin(startLocation);
     }
-    else if (r < 0.2) {
+    else if (r < 0.1) {
       item = new Diamond(startLocation);
     }
 
