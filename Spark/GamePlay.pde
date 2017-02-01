@@ -127,13 +127,19 @@ void displayGameOver() {
     textAlign(CENTER);
     textSize(80);
     text("Game"+ "\n" + "Over", width / 2, height / 3);
+    textSize(30);
+    text("Coins Collected This Round: " + moneyThisRound, width / 2, (height / 10) * 6);
+    text("Total Coin: " + (moneyThisRound + player.money), width / 2, (height / 10) * 7);
 }
 
 void displayMoney() {
+  PImage coin = loadImage("image/Coin.png");
   fill(255);
   textAlign(CENTER);
   textSize(30);
   text(moneyThisRound, (width/10) * 9, height / 15);
+  imageMode(CENTER);
+  image(coin, (width/10) * 9.75, height / 18.5, 30, 30);
 }
 
 void mainGame() {
@@ -149,7 +155,6 @@ void mainGame() {
   player.getWeapon().removeOutofWindowBullet();
   // Remove out of window Items
   removeOutofWindowItem();
-
 
   // Making the next wave and increase drop speed
   if(nextWave()) {
