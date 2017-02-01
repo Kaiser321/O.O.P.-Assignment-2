@@ -3,7 +3,6 @@ class Weapon {
 	PImage bulletImpactImage;
 
 	ArrayList<Bullet> bulletsFired = new ArrayList<Bullet>();
-	float locationX;
 	int[] weaponDamage = new int[4];
 	int bulletSpeed;
 	int bulletDelay;
@@ -18,7 +17,7 @@ class Weapon {
 	}
 
 	void fireBullet(int weaponCode) {
-		locationX = mouseX;
+		float locationX = mouseX;
     
     	if(locationX <= 50) {
       		locationX = 50;
@@ -68,11 +67,9 @@ class Weapon {
 
 	void removeOutofWindowBullet() {
 		if(bulletsFired.size() > 1) {
-			for(int i = bulletsFired.size() - 1; i >= 0; i--) {
-				Bullet b = bulletsFired.get(i);
-				if (b.getY() < 0){
-					bulletsFired.remove(b);
-				}
+			Bullet b = bulletsFired.get(0);
+			if (b.getY() < 0){
+				bulletsFired.remove(b);
 			}
 		}
 	} 

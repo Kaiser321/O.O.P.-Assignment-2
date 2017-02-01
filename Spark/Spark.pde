@@ -6,6 +6,7 @@ float waveDelayCounter = 0.3; // Counter used to decrease the delay time as the 
 
 int playerWeaponArmed = 0;
 int moneyThisRound = 0;
+int gameState = 1;
 
 /* Declear Classes*/
 Player player; // Player Object
@@ -14,6 +15,7 @@ ArrayList<DropItem> dropingItems;
 
 void setup() {
   size(600, 1000);
+  frameRate(60);
   smooth();
   noCursor();
   // Read player data from file
@@ -36,21 +38,14 @@ void draw() {
   //println(frameRate);
   background(0);
 
-  // Update and draw Player
-  player.updatePlayer();
-  player.drawPlayer();
-
   // Check monsters that are dead in every wave
   for(MonsterWave wave : waveSystem) {
     wave.checkDeadMonsters();
   }
-
   // Check waves that are empty
   checkDeadWave();
-
   // Remove out of window bullet
   player.getWeapon().removeOutofWindowBullet();
-
   // Remove out of window Items
   removeOutofWindowItem();
 
@@ -62,7 +57,6 @@ void draw() {
     waveSystem.add(w);
     monsterDropSpeed = monsterDropSpeed * 1.00;
   }
-
   // Display Monster waves
   for(MonsterWave m : waveSystem) {
     m.displayWave();
@@ -91,20 +85,21 @@ void draw() {
     }
   }
   player.getWeapon().displayBulletsFired();
-  
   // Update and draw Drop Items
   for(DropItem i : dropingItems) {
       i.updateItems();
       i.displayItems();
     }
+  // Update and draw Player
+  player.updatePlayer();
+  player.drawPlayer();
 
   // Check for Monster to Player Collision
-  monsterVbulletCollision();
-
+  monsterVbulletVplayerCollision();
   // Check for Player to DropItem Collision
-  playerVitemCollision();
-}
+  itemVplayerCollision();
 
+}
 
 // Spawn next wave
 boolean nextWave() {
@@ -119,15 +114,21 @@ boolean nextWave() {
 	}
 }
 
-void monsterVbulletCollision() {
+void monsterVbulletVplayerCollision() {
   for(int waveIndex = waveSystem.size() - 1; waveIndex >= 0; waveIndex--) {
     MonsterWave wave = waveSystem.get(waveIndex);
 
     for(int monsterIndex = wave.getWaveSize() - 1; monsterIndex >= 0; monsterIndex--) {
+      Monster currentMonster = wave.getMonster(monsterIndex);
+
+      if(monsterVplayerCollision(player, currentMonster)){
+          gameState = 2;
+          background(0);
+          break;
+        }
 
       for(int bulletIndex = player.getWeapon().getBulletsFiredSize() -1; bulletIndex >= 0;  bulletIndex--) {  
         Bullet currentBullet = player.getWeapon().getBullet(bulletIndex);
-        Monster currentMonster = wave.getMonster(monsterIndex);
 
         if(checkCollision(currentMonster.getX(), currentMonster.getY(), currentBullet.getX(), currentBullet.getY(), (currentMonster.size) / 2, (currentBullet.size) / 2)) {
           int collisionIndex = getCollisionIndex(currentMonster.getX());
@@ -140,7 +141,7 @@ void monsterVbulletCollision() {
   }
 }
 
-void playerVitemCollision() {
+void itemVplayerCollision() {
   for(int itemIndex = dropingItems.size() - 1; itemIndex >= 0; itemIndex--) {
     DropItem currentItem = dropingItems.get(itemIndex); 
 
@@ -151,59 +152,65 @@ void playerVitemCollision() {
   }
 }
 
+boolean monsterVplayerCollision(Player player, Monster currentMonster) {
+  if(checkCollision(currentMonster.getX(), currentMonster.getY(), player.getX(), player.getY(), (currentMonster.size / 2), (player.size / 3))) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
 // Check if there is a collision
-boolean checkCollision(float mX, float mY, float bX, float bY, float mSize, float bSize) {
-    if( ((bX + bSize) >= mX - mSize && (bX - bSize) <= mX + mSize) && ( (bY - bSize) <= mY + mSize &&  bY >= mY + (mSize/2)) ){
+boolean checkCollision(float aX, float aY, float bX, float bY, float aSize, float bSize) {
+    float aXStart = aX - aSize, aXEnd = aX + aSize, 
+          aYStart = aY + aSize, aYEnd = aY - aSize;
+    float bXStart = bX - bSize, bXEnd = bX + bSize, 
+          bYStart = bY - bSize, bYEnd = bY + bSize;
+
+    if( ((bXStart <= aXEnd) && (bXEnd >= aXStart)) && ((bYStart <= aYStart) && (bYEnd >= aYEnd)) ) {
       return true;
     }
     else {
       return false;
     }
+
 }
 
 // If there is a collision, return the monster that's been hit
 int getCollisionIndex(float mX) {
   int index = 0;
   switch ((int)mX) {
-      case  50:
-        index = 0;
-      break;
-
-      case 150:
-        index = 1;
-      break;
-
-      case 250:
-        index = 2;
-      break;      
-
-      case 350:
-        index = 3;
-      break; 
-
-      case 450:
-        index = 4;
-      break; 
-
-      case 550:
-        index = 5;
-      break; 
+    case  50:
+      index = 0;
+    break;
+    case 150:
+      index = 1;
+    break;
+    case 250:
+      index = 2;
+    break;      
+    case 350:
+      index = 3;
+    break; 
+    case 450:
+      index = 4;
+    break; 
+    case 550:
+      index = 5;
+    break; 
   }
   return index;
 }
 
 // Check and remove waves that are out of window or has no monsters left
 void checkDeadWave() {
-  for(int waveIndex = waveSystem.size() - 1; waveIndex >= 0; waveIndex--) {
-    MonsterWave wave = waveSystem.get(waveIndex);
-
-    if(wave.checkDeadMonsters() >= 6) {
-      waveSystem.remove(wave);
-    }
-
-    if(wave.getMonster(waveIndex).getY() >= 950){
-      waveSystem.remove(wave);
-    }
+  MonsterWave wave = waveSystem.get(0);
+  if(wave.checkDeadMonsters() >= 6) {
+    waveSystem.remove(wave);
+  }
+  else if(wave.getMonster(0).getY() >= 950){
+    waveSystem.remove(wave);
   }
 }
 
