@@ -4,6 +4,7 @@ float monsterDropSpeed = 2; // How fast the waves drops
 float waveDelay = 100; // Delay the next wave
 float waveDelayCounter = 0.3; // Counter used to decrease the delay time as the game goes on
 
+
 int playerWeaponArmed = 0;
 int moneyThisRound = 0;
 int gameState = 1;
@@ -12,6 +13,7 @@ int gameState = 1;
 Player player; // Player Object
 ArrayList<MonsterWave> waveSystem ; // Arraylist for waves of monsters
 ArrayList<DropItem> dropingItems;
+
 
 void setup() {
   size(600, 1000);
@@ -91,14 +93,21 @@ void draw() {
       i.displayItems();
     }
   // Update and draw Player
-  player.updatePlayer();
-  player.drawPlayer();
+  if(gameState == 2 ) {
+    displayGameOver();
+  }
+  else {
+    player.updatePlayer();
+    player.drawPlayer();
+  }
 
   // Check for Monster to Player Collision
   monsterVbulletVplayerCollision();
   // Check for Player to DropItem Collision
   itemVplayerCollision();
-
+  
+  displayMoney();
+  
 }
 
 // Spawn next wave
@@ -123,7 +132,6 @@ void monsterVbulletVplayerCollision() {
 
       if(monsterVplayerCollision(player, currentMonster)){
           gameState = 2;
-          background(0);
           break;
         }
 
@@ -174,7 +182,6 @@ boolean checkCollision(float aX, float aY, float bX, float bY, float aSize, floa
     else {
       return false;
     }
-
 }
 
 // If there is a collision, return the monster that's been hit
@@ -223,4 +230,18 @@ void removeOutofWindowItem() {
         }
       }
   }
+}
+
+void displayGameOver() {
+    fill(255);
+    textAlign(CENTER);
+    textSize(80);
+    text("Game"+ "\n" + "Over", width / 2, height / 3);
+}
+
+void displayMoney() {
+  fill(255);
+  textAlign(CENTER);
+  textSize(30);
+  text(moneyThisRound, (width/10) * 9, height / 10);
 }

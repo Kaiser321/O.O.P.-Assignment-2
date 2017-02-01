@@ -90,5 +90,4 @@ class Weapon {
 	int getBulletsFiredSize() {
 		return bulletsFired.size();
 	}
-
 }
