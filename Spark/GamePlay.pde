@@ -130,6 +130,7 @@ void displayGameOver() {
     textSize(30);
     text("Coins Collected This Round: " + moneyThisRound, width / 2, (height / 10) * 6);
     text("Total Coin: " + (moneyThisRound + player.money), width / 2, (height / 10) * 7);
+    text("Press Space to return to Main Menu", width / 2, (height / 10) * 9);
 }
 
 void displayMoney() {
@@ -187,6 +188,13 @@ void mainGame() {
   // Update and draw Player
   if(roundOver) {
     displayGameOver(); 
+    if (keyPressed) {
+      if (key == ' ') {
+        gameState = 0;
+        waveDelay = 0;
+        waveSystem.clear();
+      }
+    }
   }
   else {
     player.updatePlayer();
