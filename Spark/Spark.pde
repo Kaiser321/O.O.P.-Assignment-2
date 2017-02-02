@@ -1,8 +1,8 @@
 /* Gobal Variables*/
 int width = 600, height = 1000;
 float monsterDropSpeed = 2; // How fast the waves drops
-float waveDelay = 100; // Delay the next wave
-float waveDelayCounter = 0.3; // Counter used to decrease the delay time as the game goes on
+float waveDelay = 50; // Delay the next wave
+float waveDelayCounter = 0.2; // Counter used to decrease the delay time as the game goes on
 
 int playerWeaponArmed = 0;
 int moneyThisRound = 0;
@@ -38,6 +38,7 @@ void setup() {
 }
 
 void draw() {
+  println(waveDelay);
   switch (gameState) {
     case 0 :
       mainMenu();

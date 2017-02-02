@@ -2,7 +2,7 @@
 boolean nextWave() {
 	if(waveDelay <= 0) {
 		waveDelay = 100;
-		waveDelayCounter = waveDelayCounter + 0.00;
+		waveDelayCounter = waveDelayCounter + 0.01;
 		return true;
 	}
 	else {
@@ -162,7 +162,7 @@ void mainGame() {
     MonsterWave w = new MonsterWave();
     w.addMonsters(monsterDropSpeed);
     waveSystem.add(w);
-    monsterDropSpeed = monsterDropSpeed * 1.00;
+    monsterDropSpeed = monsterDropSpeed + 0.05;
   }
   // Display Monster waves
   for(MonsterWave m : waveSystem) {
@@ -223,11 +223,11 @@ void mainGame() {
 }
 
 void clearStats() {
-  monsterDropSpeed = 2;
+  monsterDropSpeed = 3;
   waveDelayCounter = 0.3;
   player.money += moneyThisRound;
   moneyThisRound = 0;
   roundOver = false;
-  waveDelay = 100;
+  waveDelay = 50;
   waveSystem.clear();
 }
