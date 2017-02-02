@@ -1,7 +1,7 @@
 /* Gobal Variables*/
 int width = 600, height = 1000;
-float monsterDropSpeed = 3; // How fast the waves drops
-float waveDelay = 0; // Delay the next wave
+float monsterDropSpeed = 2; // How fast the waves drops
+float waveDelay = 100; // Delay the next wave
 float waveDelayCounter = 0.3; // Counter used to decrease the delay time as the game goes on
 
 int playerWeaponArmed = 0;
@@ -35,7 +35,6 @@ void setup() {
   // Create Objects
   waveSystem = new ArrayList<MonsterWave>(); // Arraylist for waves of monsters
   dropingItems = new ArrayList<DropItem>();
-  
 }
 
 void draw() {

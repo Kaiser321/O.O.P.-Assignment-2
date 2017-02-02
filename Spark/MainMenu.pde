@@ -22,7 +22,6 @@ void mainMenu() {
     image(shipIcon, 440, 490, 50, 50);
     if (mousePressed) {
       gameState = 1;
-      clearStats();
     }
   }
 
@@ -72,11 +71,5 @@ boolean hoverButton(int x, int y, int width, int height)  {
   }
 }
 
-void clearStats () {
-  monsterDropSpeed = 3; // How fast the waves drops
-  waveDelay = 100; // Delay the next wave
-  waveDelayCounter = 0.3; // Counter used to decrease the delay time as the game goes on
 
-  moneyThisRound = 0;
-  roundOver = false;
-}
+

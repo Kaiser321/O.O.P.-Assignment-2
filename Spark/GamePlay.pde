@@ -7,7 +7,7 @@ boolean nextWave() {
 	}
 	else {
 		waveDelay = waveDelay - waveDelayCounter;
-		return false;	
+		return false;
 	}
 }
 
@@ -100,7 +100,7 @@ int getCollisionIndex(float mX) {
 
 // Check and remove waves that are out of window or has no monsters left
 void checkDeadWave() {
-  if(waveSystem.size() >1 ){
+  if(waveSystem.size() > 1){
     MonsterWave wave = waveSystem.get(0);
     if(wave.checkDeadMonsters() >= 6) {
       waveSystem.remove(wave);
@@ -191,8 +191,7 @@ void mainGame() {
     if (keyPressed) {
       if (key == ' ') {
         gameState = 0;
-        waveDelay = 0;
-        waveSystem.clear();
+        clearStats();
       }
     }
   }
@@ -221,4 +220,14 @@ void mainGame() {
   itemVplayerCollision();
   
   displayMoney();
+}
+
+void clearStats() {
+  monsterDropSpeed = 2;
+  waveDelayCounter = 0.3;
+  player.money += moneyThisRound;
+  moneyThisRound = 0;
+  roundOver = false;
+  waveDelay = 100;
+  waveSystem.clear();
 }
