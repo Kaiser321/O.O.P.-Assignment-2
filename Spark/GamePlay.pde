@@ -1,14 +1,103 @@
+void mainGame() {
+  background(0);
+
+  // Check monsters that are dead in every wave
+  for(MonsterWave wave : waveSystem) {
+    wave.checkDeadMonsters();
+  }
+  // Check waves that are empty
+  checkDeadWave();
+  // Remove out of window bullet
+  player.getWeapon().removeOutofWindowBullet();
+  // Remove out of window Items
+  removeOutofWindowItem();
+
+  // Making the next wave and increase drop speed
+  if(nextWave()) {
+    MonsterWave w = new MonsterWave();
+    w.addMonsters(monsterDropSpeed);
+    waveSystem.add(w);
+    monsterDropSpeed = monsterDropSpeed + 0.05;
+  }
+  // Display Monster waves
+  for(MonsterWave m : waveSystem) {
+    m.displayWave();
+  }
+
+  // Player Change bullet
+  if(keyPressed) {
+    if(key == '1'){
+      playerWeaponArmed = 0;
+    }
+    else if(key == '2'){
+      playerWeaponArmed = 1;
+    }
+    else if(key == '3'){
+      playerWeaponArmed = 2;
+    }
+    else if(key == '4'){
+      playerWeaponArmed = 3;
+    }
+  }
+
+  // Update and draw Player
+  if(roundOver) {
+    displayGameOver(); 
+    if (keyPressed) {
+      if (key == ' ') {
+        gameState = 0;
+        clearStats();
+      }
+    }
+  }
+  else {
+    player.updatePlayer();
+    player.drawPlayer();
+
+    // Update and draw bullet
+    if (player.getWeapon().nextBullet()) {
+      if(mousePressed){
+        player.getWeapon().fireBullet(playerWeaponArmed);
+      }
+    }
+  }
+
+  player.getWeapon().displayBulletsFired();
+  // Update and draw Drop Items
+  for(DropItem i : dropingItems) {
+      i.updateItems();
+      i.displayItems();
+    }
+
+  // Check for Monster to Player Collision
+  monsterVbulletVplayerCollision();
+  // Check for Player to DropItem Collision
+  itemVplayerCollision();
+  
+  displayMoney();
+}
+
+void clearStats() {
+  monsterDropSpeed = 2;
+  waveDelayCounter = 0.2;
+  player.money += moneyThisRound;
+  moneyThisRound = 0;
+  roundOver = false;
+  waveDelay = 50;
+  waveSystem.clear();
+}
+
 // Spawn next wave
 boolean nextWave() {
-	if(waveDelay <= 0) {
-		waveDelay = 100;
-		waveDelayCounter = waveDelayCounter + 0.01;
-		return true;
-	}
-	else {
-		waveDelay = waveDelay - waveDelayCounter;
-		return false;
-	}
+  if(waveDelay <= 0) {
+    waveDelay = 100;
+    waveDelayCounter = waveDelayCounter + 0.01;
+    return true;
+  }
+  else {
+    waveDelay = waveDelay - waveDelayCounter;
+    return false;
+  }
 }
 
 void monsterVbulletVplayerCollision() {
@@ -141,93 +230,4 @@ void displayMoney() {
   text(moneyThisRound, (width/10) * 9, height / 15);
   imageMode(CENTER);
   image(coin, (width/10) * 9.75, height / 18.5, 30, 30);
-}
-
-void mainGame() {
-  background(0);
-
-  // Check monsters that are dead in every wave
-  for(MonsterWave wave : waveSystem) {
-    wave.checkDeadMonsters();
-  }
-  // Check waves that are empty
-  checkDeadWave();
-  // Remove out of window bullet
-  player.getWeapon().removeOutofWindowBullet();
-  // Remove out of window Items
-  removeOutofWindowItem();
-
-  // Making the next wave and increase drop speed
-  if(nextWave()) {
-    MonsterWave w = new MonsterWave();
-    w.addMonsters(monsterDropSpeed);
-    waveSystem.add(w);
-    monsterDropSpeed = monsterDropSpeed + 0.05;
-  }
-  // Display Monster waves
-  for(MonsterWave m : waveSystem) {
-    m.displayWave();
-  }
-
-  // Player Change bullet
-  if(keyPressed) {
-    if(key == '1'){
-      playerWeaponArmed = 0;
-    }
-    else if(key == '2'){
-      playerWeaponArmed = 1;
-    }
-    else if(key == '3'){
-      playerWeaponArmed = 2;
-    }
-    else if(key == '4'){
-      playerWeaponArmed = 3;
-    }
-  }
-
-  // Update and draw Player
-  if(roundOver) {
-    displayGameOver(); 
-    if (keyPressed) {
-      if (key == ' ') {
-        gameState = 0;
-        clearStats();
-      }
-    }
-  }
-  else {
-    player.updatePlayer();
-    player.drawPlayer();
-
-    // Update and draw bullet
-    if (player.getWeapon().nextBullet()) {
-      if(mousePressed){
-        player.getWeapon().fireBullet(playerWeaponArmed);
-      }
-    }
-  }
-
-  player.getWeapon().displayBulletsFired();
-  // Update and draw Drop Items
-  for(DropItem i : dropingItems) {
-      i.updateItems();
-      i.displayItems();
-    }
-
-  // Check for Monster to Player Collision
-  monsterVbulletVplayerCollision();
-  // Check for Player to DropItem Collision
-  itemVplayerCollision();
-  
-  displayMoney();
-}
-
-void clearStats() {
-  monsterDropSpeed = 3;
-  waveDelayCounter = 0.3;
-  player.money += moneyThisRound;
-  moneyThisRound = 0;
-  roundOver = false;
-  waveDelay = 50;
-  waveSystem.clear();
 }

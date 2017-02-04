@@ -56,6 +56,7 @@ void mainMenu() {
     image(impactIcon, 220, 790, 50, 50);
     image(impactIcon, 380, 790, 50, 50);
     if (mousePressed) {
+      saveData();
       exit();
     }
   }
