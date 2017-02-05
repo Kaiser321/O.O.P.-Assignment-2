@@ -5,11 +5,14 @@ class Bullet {
 	int size;
 	String bulletColor;
 
+
+
 	Bullet(PVector fire, float bulletSpeed, int bulletDamage){
 		velocity = new PVector(0, bulletSpeed);
 		location = fire.get();
 		damage = bulletDamage;
 		size = 20;
+
 	}
 
  	float getX() {
@@ -21,6 +24,7 @@ class Bullet {
   	}
 
 	void updateBullet() {
+		//fireBullet.play();
 		location.sub(velocity);
 	}
 
@@ -34,6 +38,10 @@ class Bullet {
 
 	String getColor() {
 		return bulletColor;
+	}
+
+	void playSound() {
+		hitSound.trigger();
 	}
 	
 }

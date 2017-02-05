@@ -14,11 +14,11 @@ class Weapon {
 		bulletDelay = bDelay;
 		bulletDelayCounter = 0;
 		bulletImpactImage = loadImage("image/BulletImpact.png");
+
 	}
 
 	void fireBullet(int weaponCode) {
 		float locationX = mouseX;
-    
     	if(locationX <= 50) {
       		locationX = 50;
    		}
@@ -28,19 +28,23 @@ class Weapon {
    		//Use switch here to add different type of bullets
 		switch (weaponCode) {
 			case 0 :
+				fireRedBullet.trigger();
 				bulletsFired.add(new RedBullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[0]));
 			break;	
 
 			case 1 :
+				fireGreenBullet.trigger();
 				bulletsFired.add(new GreenBullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[1]));
 			break;
 
 			case 2 :
+				fireBlueBullet.trigger();
 				bulletsFired.add(new BlueBullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[2]));	
 			
 			break;		
 
 			case 3 :
+				firePurpleBullet.trigger();
 				bulletsFired.add(new PurpleBullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[3]));
 			break;	
 		}

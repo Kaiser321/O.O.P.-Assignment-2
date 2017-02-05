@@ -1,3 +1,4 @@
+
 void mainGame() {
   background(0);
 
@@ -42,7 +43,11 @@ void mainGame() {
 
   // Update and draw Player
   if(roundOver) {
-    displayGameOver(); 
+    displayGameOver();
+    if(!playExplodeSound) {
+      player.playSound();
+      playExplodeSound = true;
+    }
     if (keyPressed) {
       if (key == ' ') {
         gameState = 0;
@@ -83,7 +88,11 @@ void clearStats() {
   player.money += moneyThisRound;
   moneyThisRound = 0;
   roundOver = false;
+  playExplodeSound = false;
   waveDelay = 50;
+  gameMusic.rewind();
+  gameMusic.pause();
+  menuMusic.loop();
   waveSystem.clear();
 }
 
@@ -131,6 +140,7 @@ void itemVplayerCollision() {
     DropItem currentItem = dropingItems.get(itemIndex); 
 
     if(checkCollision(currentItem.getX(), currentItem.getY(), player.getX(), player.getY(), (currentItem.size / 2), (player.size / 2))) {
+      currentItem.playSound();
       dropingItems.remove(itemIndex);
       moneyThisRound += currentItem.getItemValue();
     }

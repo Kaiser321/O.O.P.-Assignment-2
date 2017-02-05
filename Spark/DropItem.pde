@@ -30,7 +30,7 @@ class DropItem {
 
 		location = startLocation.copy();
 		value = 1;
-    size = 40;
+    	size = 40;
 	}
 
 	void updateItems() {
@@ -52,5 +52,9 @@ class DropItem {
 
 	int getItemValue() {
 		return value;
+	}
+
+	void playSound() {
+
 	}
 }

@@ -21,6 +21,10 @@ void mainMenu() {
     image(shipIcon, 160, 490, 50, 50);
     image(shipIcon, 440, 490, 50, 50);
     if (mousePressed) {
+      menuMusic.rewind();
+      menuMusic.pause();
+      gameMusic.loop();
+      selectSound.trigger();
       gameState = 1;
     }
   }
@@ -33,29 +37,34 @@ void mainMenu() {
     image(coinIcon, 420, 590, 50, 50);
     if (mousePressed) {
       gameState = 2;
+      selectSound.trigger();
     }
   }
 
 
-  rect(width / 2, 690, 245, 50);
+  /*rect(width / 2, 690, 245, 50);
   text("Leaderboard", width / 2, 700);
-  if(hoverButton(width / 2, 690, 245, 50)) {
+  if(hoverButton(width / 2, 690, 245, 50)) {  
     imageMode(CENTER);
     image(diamondIcon, 150, 690, 50, 50);
     image(diamondIcon, 450, 690, 50, 50);
     if (mousePressed) {
+      selectSound.trigger();
       gameState = 3;
     }
   }
+  */
 
 
-  rect(width / 2, 790, 90, 50);
-  text("Quit", width / 2, 800);
-  if(hoverButton(width / 2, 790, 90, 50)) {
+  rect(width / 2, 690, 90, 50);
+  text("Quit", width / 2, 700);
+  if(hoverButton(width / 2, 690, 90, 50)) {
+
     imageMode(CENTER);
-    image(impactIcon, 220, 790, 50, 50);
-    image(impactIcon, 380, 790, 50, 50);
+    image(impactIcon, 220, 690, 50, 50);
+    image(impactIcon, 380, 690, 50, 50);
     if (mousePressed) {
+      selectSound.trigger();
       saveData();
       exit();
     }

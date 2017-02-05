@@ -34,6 +34,7 @@ void upgradeMenu() {
       fill(255);
       rect((width/6) * 2, (height/10) * 4, btnSizeX, btnSizeY);
       if (mousePressed) {
+        selectSound.trigger();
         player.money -= cost*player.weaponDamage[0];
         player.weaponDamage[0] += 25;
       }
@@ -58,6 +59,7 @@ void upgradeMenu() {
       fill(255);
       rect((width/6) * 4, (height/10) * 4, btnSizeX, btnSizeY);
       if (mousePressed) {
+        selectSound.trigger();
         player.money -= cost*player.weaponDamage[1];
         player.weaponDamage[1] += 25;
       }
@@ -82,6 +84,7 @@ void upgradeMenu() {
       fill(255);
       rect((width/6) * 2, (height/10) * 6, btnSizeX, btnSizeY);
       if (mousePressed) {
+        selectSound.trigger();
         player.money -= cost*player.weaponDamage[2];
         player.weaponDamage[2] += 25;
       }
@@ -105,6 +108,7 @@ void upgradeMenu() {
       fill(255);
       rect((width/6) * 4, (height/10) * 6, btnSizeX, btnSizeY);
       if (mousePressed) {
+        selectSound.trigger();
         player.money -= cost*player.weaponDamage[3];
         player.weaponDamage[3] += 25;
       }
@@ -127,6 +131,7 @@ void upgradeMenu() {
       fill(255);
       rect((width/6) * 3, (height/10) * 9, btnSizeX, btnSizeY);
       if (mousePressed) {
+        selectSound.trigger();
         saveData();
         gameState = 0;
       }
@@ -150,6 +155,7 @@ void upgradeMenu() {
       fill(255);
       rect((width/6) * 2, (height/10) * 8, btnSizeX, btnSizeY);
       if (mousePressed) {
+        selectSound.trigger();
         player.money -= ((cost*cost) * player.bulletSpeed);
         player.bulletSpeed += 5;
       }
@@ -174,6 +180,7 @@ void upgradeMenu() {
       fill(255);
       rect((width/6) * 4, (height/10) * 8, btnSizeX, btnSizeY);
       if (mousePressed) {
+        selectSound.trigger();
         player.money -= ((cost*cost) * player.bulletDelay);
         player.bulletDelay -= 1;
       }

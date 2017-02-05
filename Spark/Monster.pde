@@ -6,6 +6,7 @@ class Monster {
   int size;
   String monsterColor;
 
+
   
   Monster(PVector drop, float dropSpeed) {
     velocity = new PVector(0, dropSpeed);
@@ -14,6 +15,7 @@ class Monster {
     currentHealth = healthPoints;
     size = 100;
     monsterColor = "red";
+
   }
 
   float getX() {
@@ -36,6 +38,7 @@ class Monster {
   boolean takeDamage(Bullet currentBullet) {
     if(this.getColor() == currentBullet.getColor()) {
       this.currentHealth -= currentBullet.getDamage();
+      currentBullet.playSound();
       return true;
     }
     else {
@@ -69,6 +72,7 @@ class Monster {
   }
 
   DropItem dropItem(PVector startLocation) {
+    this.playSound();
     float r = random(1);
 
     DropItem item = new DropItem(startLocation);
@@ -82,4 +86,8 @@ class Monster {
 
     return item;
   } 
+
+  void playSound() {
+    explodeSound.trigger();
+  }
 }
