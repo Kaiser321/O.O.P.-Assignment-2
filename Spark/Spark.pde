@@ -2,22 +2,16 @@ import ddf.minim.*;
 
 /* Gobal Variables*/
 int width = 600, height = 1000;
-float monsterDropSpeed = 2; // How fast the waves drops
-float waveDelay = 50; // Delay the next wave
-float waveDelayCounter = 0.2; // Counter used to decrease the delay time as the game goes on
-
-int playerWeaponArmed = 0;
-int moneyThisRound = 0;
 int gameState = 0;
-boolean roundOver = false;
-boolean playExplodeSound = false;
 
 /* Declear Classes*/
 Minim minim;
 Player player; // Player Object
-ArrayList<MonsterWave> waveSystem ; // Arraylist for waves of monsters
-ArrayList<DropItem> dropingItems;
+
 Table playerData;
+MainGame mainGame;
+MainMenu mainMenu;
+UpgradeMenu upgradeMenu;
 
 AudioSample coinSound;
 AudioSample hitSound;
@@ -38,6 +32,11 @@ void setup() {
   frameRate(60);
   smooth();
   minim = new Minim(this);
+  mainGame = new MainGame();
+  mainMenu = new MainMenu();
+  upgradeMenu = new UpgradeMenu();
+
+
 
   coinSound = minim.loadSample("sound/Coin.wav" , 256);
   hitSound = minim.loadSample("sound/Hit.wav", 256);  
@@ -65,23 +64,18 @@ void setup() {
                         row.getInt("playerMoney"));
   }
   
-  // Create Objects
-  waveSystem = new ArrayList<MonsterWave>(); // Arraylist for waves of monsters
-  dropingItems = new ArrayList<DropItem>();
-
 }
 
 void draw() {
-  println(waveSystem.size(), dropingItems.size(), player.getWeapon().bulletsFired.size());
   switch (gameState) {
     case 0 :
-      mainMenu();
+      mainMenu.displayMenu();
     break;  
     case 1 :
-      mainGame();
+      mainGame.runGame();
     break;
     case 2 :
-      upgradeMenu();
+      upgradeMenu.displayUpgradeMenu();
     break;   
   }
 }

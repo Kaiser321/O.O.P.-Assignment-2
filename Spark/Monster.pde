@@ -101,8 +101,7 @@ class Monster {
     else if (r < 0.1) {
       item = new Diamond(startLocation);
     }
-
-
+    
     return item;
   } 
 

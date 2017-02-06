@@ -37,29 +37,24 @@ class MonsterWave {
   	}
   }
 
-  int checkDeadMonsters() {
-    int numDead = 0;
-    for(int i = wave.size() - 1; i >= 0; i--) {
-      Monster m = wave.get(i);
-      if(m.isDead()){
-        imageMode(CENTER);
-        image(explodeImage, m.getX(), m.getY(), 120, 120);
-        if(m.getX() < 600) {
-          dropingItems.add(m.dropItem(m.location));
-        }
-        m.removeMonster();
-        numDead++;
-      }
-    }
-    return numDead;
-  }
-
   void displayWave() {
     for(int i = wave.size() - 1; i >= 0; i--) {
-      Monster w = wave.get(i);
-      w.updateMonster();
-      w.drawMonster();
-      w.displayHealthPoints();
+      Monster m = wave.get(i);
+      m.updateMonster();
+      m.drawMonster();
+      m.displayHealthPoints();
+      checkDeadMonsters(m);
+    }
+  }
+
+  void checkDeadMonsters(Monster m) {
+    if(m.isDead()){
+      imageMode(CENTER);
+      image(explodeImage, m.getX(), m.getY(), 120, 120);
+      if(m.getX() < 600) {
+        mainGame.dropingItems.add(m.dropItem(m.location));
+      }
+      m.removeMonster();
     }
   }
 
