@@ -1,6 +1,7 @@
 class Monster {
   PVector location;
   PVector velocity;
+  PImage monsterImage;
   int healthPoints;
   int currentHealth;
   int size;
@@ -8,13 +9,27 @@ class Monster {
 
 
   
-  Monster(PVector drop, float dropSpeed) {
+  Monster(PVector drop, float dropSpeed, String mColor) {
     velocity = new PVector(0, dropSpeed);
     location = drop.get();
+    switch (mColor) {
+      case "red" :
+        monsterImage = loadImage("image/RedMonster.png");
+      break;
+      case "green" :
+        monsterImage = loadImage("image/GreenMonster.png");
+      break;
+      case "blue" :
+        monsterImage = loadImage("image/BlueMonster.png");    
+      break;
+      case "purple" :
+        monsterImage = loadImage("image/PurpleMonster.png");     
+      break;          
+    }
     healthPoints = 100;
     currentHealth = healthPoints;
     size = 100;
-    monsterColor = "red";
+    monsterColor = mColor;
 
   }
 
@@ -53,14 +68,18 @@ class Monster {
   }
  
   void drawMonster() {
-
+    imageMode(CENTER);
+    image(monsterImage,location.x, location.y, size, size);
   }
   
   void displayHealthPoints() {
+    float m = map(currentHealth, 0, healthPoints, 0 ,75);
     noFill();
     stroke(255);
     rectMode(CENTER);
     rect(location.x, location.y + 60, 75, 10);
+    fill(255);
+    rect(location.x, location.y + 60, m, 10);
   }
   
   void removeMonster() {

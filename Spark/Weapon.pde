@@ -29,23 +29,23 @@ class Weapon {
 		switch (weaponCode) {
 			case 0 :
 				fireRedBullet.trigger();
-				bulletsFired.add(new RedBullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[0]));
+				bulletsFired.add(new Bullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[0], "red"));
 			break;	
 
 			case 1 :
 				fireGreenBullet.trigger();
-				bulletsFired.add(new GreenBullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[1]));
+				bulletsFired.add(new Bullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[1], "green"));
 			break;
 
 			case 2 :
 				fireBlueBullet.trigger();
-				bulletsFired.add(new BlueBullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[2]));	
+				bulletsFired.add(new Bullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[2], "blue"));	
 			
 			break;		
 
 			case 3 :
 				firePurpleBullet.trigger();
-				bulletsFired.add(new PurpleBullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[3]));
+				bulletsFired.add(new Bullet(new PVector(locationX, 850), bulletSpeed, weaponDamage[3], "purple"));
 			break;	
 		}
 	}

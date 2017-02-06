@@ -15,22 +15,22 @@ class MonsterWave {
       int r = (int)random(4);
       switch (r) {
         case 0 :
-          wave.add(new RedMonster(new PVector(startX, startY), dropSpeed));
+          wave.add(new Monster(new PVector(startX, startY), dropSpeed, "red"));
           startX += 100;
         break;  
 
         case 1 :
-          wave.add(new GreenMonster(new PVector(startX, startY), dropSpeed));
+          wave.add(new Monster(new PVector(startX, startY), dropSpeed, "green"));
           startX += 100;
         break;  
 
         case 2 :
-          wave.add(new BlueMonster(new PVector(startX, startY), dropSpeed));
+          wave.add(new Monster(new PVector(startX, startY), dropSpeed, "blue"));
           startX += 100;
         break;
 
         case 3 :
-          wave.add(new PurpleMonster(new PVector(startX, startY), dropSpeed));
+          wave.add(new Monster(new PVector(startX, startY), dropSpeed, "purple"));
           startX += 100;
         break;
       }
