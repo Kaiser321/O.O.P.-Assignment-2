@@ -67,6 +67,7 @@ void setup() {
 }
 
 void draw() {
+  println(mainGame.dropingItems.size());
   switch (gameState) {
     case 0 :
       mainMenu.displayMenu();

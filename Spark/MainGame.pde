@@ -26,6 +26,8 @@ class MainGame {
 
     player.getWeapon().removeOutofWindowBullet();
 
+    this.removeOutofWindowItem();
+
     if(nextWave()) {
       this.spawnWave();
     }
@@ -84,15 +86,15 @@ class MainGame {
     for(DropItem i : dropingItems) {
       i.updateItems();
       i.displayItems();
-      if(dropingItems.size() > 1) {
-        removeOutofWindowItem(i);
-      } 
     }
   }
 
-  void removeOutofWindowItem(DropItem i) {
-    if(i.getY() >= 1000){
-      dropingItems.remove(i);
+  void removeOutofWindowItem() {
+    if(dropingItems.size() > 1) {
+      for(DropItem i : dropingItems)
+        if(i.getY() >= 1000){
+          dropingItems.remove(i);
+        }
     }
   }
 
