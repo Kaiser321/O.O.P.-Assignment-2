@@ -20,6 +20,7 @@
 - When a monster is destroyed a item will be dropped
 - Each frame out of window bullets, items and monsters will be removed and the rest will be drawn
 - Then I implemented the collision system which detects Monster to bullet, Item to player and monster to player collision.
+- I came up with a mechanism where they are 4 different types of enemy and 4 different types of bullet the plater can fire. The player must shoot the enemy with the right bullet in order to do damage
 
 # How to Play
 - Move mouse cursor left and right to move the spaceship
@@ -36,10 +37,14 @@
 - Upgrading bullet speed makes your bullet travel fast and Rate of fire makes your weapon shoot faster. There are 4 levels to upgrade for both of them 
 
 # Key Features 
-
-# Alpha testing
-
-# Beta testing
+- Everything in this game is a class
+- There's an array list called WaveSystem that contains all the waves objects that spawned. Each waves contains an array list of 6 monsters objects that were created and added upon spawning the wave
+- The player object contains a weapon object that contains an arraylist of bullets. Each time a bullet is fired a new bullet is made and added to the array list.
+- There's an array list for drop items the stored all drop items
+- Money gained and upgrades made by the player will be saved to a file that loads every time the game starts
+- Polymorphism is used for the items as Coin and Diamond class are child class of DropItem and all those objects are stored in the same arraylist
 
 # Assets 
+- All images used are made by me, and imported and resized by processing 
+- All sound are downloaded from freesound.org
 
