@@ -5,7 +5,7 @@
 [![YouTube](https://i.ytimg.com/vi/D7d1gAzW0QU/hqdefault.jpg?custom=true&w=196&h=110&stc=true&jpg444=true&jpgq=90&sp=68&sigh=TPqjP-Ae1bI5Ubio-4xUn4a_qfk)](https://www.youtube.com/watch?v=D7d1gAzW0QU&t)
 
 # Idea 
--The main game concept is inspired by a popular Facebook game called Everwing created by Blackstorm Labs in 2016.
+- The main game concept is inspired by a popular Facebook game called Everwing created by Blackstorm Labs in 2016.
 -I wanted to take the main game mechanic from Everwing and add a retro arcade game feel to it.
 
 # Plan / Prototype 
