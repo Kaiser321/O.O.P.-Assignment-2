@@ -12,6 +12,7 @@ Table playerData;
 MainGame mainGame;
 MainMenu mainMenu;
 UpgradeMenu upgradeMenu;
+HelpPage helpPage;
 
 AudioSample coinSound;
 AudioSample hitSound;
@@ -35,6 +36,7 @@ void setup() {
   mainGame = new MainGame();
   mainMenu = new MainMenu();
   upgradeMenu = new UpgradeMenu();
+  helpPage = new HelpPage();
 
 
 
@@ -78,5 +80,8 @@ void draw() {
     case 2 :
       upgradeMenu.displayUpgradeMenu();
     break;   
+    case 3 :
+      helpPage.displayHelp();
+    break;  
   }
 }

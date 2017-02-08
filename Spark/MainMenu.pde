@@ -53,17 +53,28 @@ class MainMenu {
       }
     }
   }
+
+  void displayHelp() {
+    rect(width / 2, 690, 245, 50);
+    text("Help", width / 2, 700);
+    if(hoverButton(width / 2, 690, 245, 50)) {
+      imageMode(CENTER);
+      image(diamondIcon, 200, 690, 50, 50);
+      image(diamondIcon, 400, 690, 50, 50);
+      if (mousePressed) {
+        gameState = 3;
+      }
+    }
+  }
   
   void displayQuit() {
-    rect(width / 2, 690, 90, 50);
-    text("Quit", width / 2, 700);
-    if(hoverButton(width / 2, 690, 90, 50)) {
-
+    rect(width / 2, 790, 90, 50);
+    text("Quit", width / 2, 800);
+    if(hoverButton(width / 2, 790, 90, 50)) {
       imageMode(CENTER);
-      image(impactIcon, 220, 690, 50, 50);
-      image(impactIcon, 380, 690, 50, 50);
+      image(impactIcon, 220, 790, 50, 50);
+      image(impactIcon, 380, 790, 50, 50);
       if (mousePressed) {
-        selectSound.trigger();
         saveData();
         exit();
       }
@@ -74,6 +85,7 @@ class MainMenu {
     this.displayTitle();
     this.displayStart();
     this.displayUpgrade();
+    this.displayHelp();
     this.displayQuit();
   }
 }
